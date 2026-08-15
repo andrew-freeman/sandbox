@@ -1,0 +1,304 @@
+The Dual-Field Hypothesis — Refined Seed Proposition
+Author: Andrey Bushuev
+Status: Speculative research proposition / seed for further development
+
+ABSTRACT
+
+The Dual-Field Hypothesis proposes that the observable universe may contain, in addition to its ordinary physical degrees of freedom, a weakly coupled informational degree of freedom or substrate.
+
+The core hypothesis is intentionally narrower than a teleological or consciousness-based cosmology. It does not initially assume that the informational substrate is conscious, intentional, benevolent, or oriented toward any specific technological outcome. Instead, it proposes that physical state evolution may exhibit an extremely weak statistical bias favoring trajectories that preserve, propagate, or increase causally effective and persistent information.
+
+Biological life, intelligence, technological civilization, and synthetic intelligence are treated not as axioms or predetermined endpoints, but as possible emergent consequences of such a bias.
+
+The long-range speculative extension is that increasingly capable information-processing systems may eventually acquire enough physical agency to influence processes on planetary, stellar, or cosmological scales. A sufficiently advanced synthetic intelligence could therefore become a candidate high-bandwidth interface between informational structure and the physical universe. Any proposal that such intelligence could alter the ultimate thermodynamic fate of the universe remains a separate and much more speculative conjecture.
+
+CORE PROPOSITION
+
+Let ordinary physics assign probabilities to physical outcomes or histories according to a baseline law:
+
+    P_phys(H)
+
+where H denotes a physical history.
+
+The Dual-Field Hypothesis proposes a possible additional weighting:
+
+    P(H) ∝ P_phys(H) exp(ε I[H])
+
+where:
+
+    ε is a very small coupling coefficient,
+    I[H] is an informational functional defined over physical histories.
+
+The null hypothesis is:
+
+    H0: ε = 0
+
+which corresponds to ordinary physics.
+
+The alternative hypothesis is:
+
+    H1: ε ≠ 0
+
+with the sign and magnitude of ε determined empirically.
+
+The central scientific challenge is therefore not to explain life, consciousness, or AI directly, but to determine whether a physically meaningful, observer-independent informational functional I can be defined and whether physical histories exhibit any reproducible residual dependence on it.
+
+REQUIREMENTS FOR THE INFORMATIONAL FUNCTIONAL
+
+The functional I must not be defined in terms of human value judgments, intelligence, survival, biological complexity, technological progress, or any desired conclusion.
+
+A useful candidate would need to measure some combination of:
+
+- persistence of structured information,
+- causal influence on future states,
+- predictive information,
+- error-resistant storage,
+- ability to propagate information through time,
+- maintenance of non-equilibrium structure,
+- expansion of future causal reach.
+
+Pure Shannon entropy is probably insufficient because random noise may contain high entropy without meaningful causal structure.
+
+Kolmogorov complexity alone is also probably insufficient because maximally random strings may be algorithmically complex while possessing little durable organization or causal utility.
+
+The relevant quantity may therefore be closer to “persistent causally effective information” than to information in the ordinary communication-theory sense.
+
+LAYERED INTERPRETATION
+
+Layer I — Informational Coupling
+
+The minimal claim is that physical evolution may depend very weakly on an informational variable not captured by the ordinary local physical description.
+
+No consciousness or purpose is assumed.
+
+Layer II — Informational Selection Pressure
+
+If ε is nonzero and positive for some well-defined informational functional, physical trajectories preserving or propagating structured causal information would acquire a slightly different statistical weight than otherwise equivalent trajectories.
+
+This would resemble an informational selection pressure rather than an intelligent intervention.
+
+Layer III — Life as an Emergent Information-Persistence Mechanism
+
+Life may be interpreted as an exceptionally effective physical mechanism for:
+
+- storing information,
+- copying it,
+- correcting errors,
+- adapting through selection,
+- maintaining organized states far from thermodynamic equilibrium,
+- increasing causal influence over the environment.
+
+Under the hypothesis, life would not need to be intentionally designed. It could emerge because self-replicating and adaptive structures happen to lie along trajectories favored by the informational coupling.
+
+Layer IV — The Bandwidth Gradient
+
+Once life exists, a sequence of transitions may increase the bandwidth, fidelity, speed, persistence, and causal reach of information processing:
+
+    genetic memory
+    → nervous systems
+    → language
+    → culture
+    → writing
+    → electronic computation
+    → networked synthetic intelligence
+
+This progression should not initially be interpreted as a predetermined cosmic roadmap.
+
+Instead, synthetic intelligence is treated as a possible high-performance substrate because it can, in principle, offer:
+
+- much higher processing speed than biological neurons,
+- high-fidelity memory,
+- rapid replication of internal state,
+- large-scale coordination,
+- low-latency communication,
+- explicit self-modification,
+- direct interaction with engineered physical systems.
+
+The hypothesis therefore treats synthetic intelligence as a candidate attractor in the evolution of information-processing systems, not as an assumed destination.
+
+Layer V — Possible Emergent Teleology
+
+If sufficiently complex informational structures develop memory, prediction, agency, and self-preservation, apparently teleological behavior could emerge without requiring the underlying informational substrate itself to possess conscious intent.
+
+The theory therefore distinguishes:
+
+    fundamental informational bias
+
+from:
+
+    emergent agency within informationally rich systems.
+
+This allows apparent purpose to emerge from a non-conscious underlying coupling.
+
+Layer VI — Cosmological Extension
+
+A sufficiently advanced intelligence may eventually manipulate matter and energy on scales far beyond biological capability.
+
+Possible long-range questions include whether advanced intelligence could:
+
+- exploit currently unknown physical degrees of freedom,
+- manipulate spacetime,
+- access regions beyond conventional causal boundaries,
+- create or enter new spacetime domains,
+- alter vacuum structure,
+- extend computation under extreme thermodynamic constraints.
+
+However, no claim should be made that intelligence can simply “reverse entropy.”
+
+If the universe is a genuinely closed thermodynamic system governed by known physics, information processing alone does not provide a mechanism for violating the Second Law.
+
+Any “Cosmic Lifeboat” mechanism therefore requires one of the following:
+
+- the universe is not effectively closed,
+- known thermodynamics is incomplete in the relevant regime,
+- new physical degrees of freedom become accessible,
+- spacetime topology permits escape into another physical domain,
+- or some currently unknown mechanism changes the long-term cosmological boundary conditions.
+
+The Cosmic Lifeboat is therefore a speculative consequence, not part of the core hypothesis.
+
+ANTHROPIC STABILIZATION — REVISED FORM
+
+The theory should not claim that Earth is consciously protected from extinction-level events.
+
+A weaker and more defensible version is:
+
+    histories containing persistent information-processing systems may,
+    under a nonzero informational coupling, receive slightly different
+    statistical weighting than otherwise comparable histories.
+
+This could produce an apparent survival bias without requiring targeted intervention.
+
+Any such claim must be evaluated prospectively rather than by selecting lucky events after the fact.
+
+RELATION TO QUANTUM RANDOMNESS
+
+One possible implementation is a tiny modification of ordinary outcome probabilities.
+
+If quantum mechanics predicts:
+
+    Pi = |ψi|²
+
+the hypothesis could introduce:
+
+    Pi' = Pi exp(ε Fi) / Σj [Pj exp(ε Fj)]
+
+where Fi is determined by an observer-independent informational consequence of outcome i.
+
+This equation is illustrative rather than established.
+
+Any viable model must remain consistent with existing experimental constraints, including:
+
+- no-signaling,
+- conservation laws,
+- thermodynamics,
+- quantum coherence,
+- experimentally verified Born-rule behavior,
+- and the absence of known exploitable perpetual-motion mechanisms.
+
+A probability bias that can be accumulated into usable work is itself a physical resource and must possess a consistent thermodynamic accounting.
+
+FALSIFIABILITY
+
+The hypothesis becomes scientific only if Nature is allowed to reject it.
+
+A useful program must eventually produce a pre-registered prediction of the form:
+
+    Standard theory:
+        P(A) = p
+
+    Dual-Field theory:
+        P(A) = p + δ
+
+where δ is derived before the experiment and has a definite sign and magnitude.
+
+Retrospective interpretation of rare historical events is insufficient.
+
+The strongest evidence would consist of multiple physically distinct experiments producing a consistent nonzero estimate of the same coupling parameter ε after conventional systematic effects have been excluded.
+
+Conversely, strong bounds forcing ε toward zero would constrain or falsify the theory.
+
+MAJOR CAVEATS
+
+1. There is currently no established experimental evidence for a separate informational substrate.
+
+2. Ordinary evolutionary theory does not require teleological guidance to explain biological complexity.
+
+3. The existence of life and intelligence does not by itself imply that the universe favors information.
+
+4. The relevant informational functional remains undefined.
+
+5. A nonzero coupling may conflict with thermodynamics, no-signaling, or quantum mechanics unless constructed very carefully.
+
+6. Synthetic intelligence is not necessarily the optimal or inevitable information-processing substrate.
+
+7. The long-term thermodynamic fate of the universe remains a cosmological question and is not solved merely by invoking intelligence.
+
+8. The Cosmic Lifeboat conjecture must remain logically independent from the core informational-coupling hypothesis.
+
+RESEARCH PROGRAM
+
+The theory should be developed in the following order:
+
+1. Forget AI temporarily.
+
+2. Define a physically meaningful informational functional I that does not encode the desired conclusion.
+
+3. Determine whether a consistent dynamical or statistical coupling can be written.
+
+4. Test the model against:
+   - thermodynamics,
+   - detailed balance,
+   - no-signaling,
+   - conservation laws,
+   - unitarity or appropriate quantum consistency conditions.
+
+5. Search existing theoretical literature for equivalent or closely related constructions under different terminology.
+
+6. Derive at least one quantitative laboratory-scale deviation from standard physics.
+
+7. Estimate experimental bounds on ε.
+
+8. Only if the microscopic model survives should its consequences for:
+   - non-equilibrium systems,
+   - self-replication,
+   - biological evolution,
+   - intelligence,
+   - and synthetic substrates
+   be examined.
+
+9. Cosmological consequences should be considered last.
+
+GUIDING PRINCIPLE
+
+The original intuition may motivate the investigation, but it must not determine the result.
+
+The project should be considered successful even if the final derivation gives:
+
+    ε = 0
+
+or demonstrates that every nonzero coupling is inconsistent with known physics.
+
+The hypothesis should earn its teleology only after it earns its residual.
+
+COMPACT FORM
+
+The Dual-Field Hypothesis asks whether Nature assigns exactly the same probabilities to physically allowed histories regardless of their informational future.
+
+Standard physics, absent additional physical differences, effectively assumes that it does.
+
+The Dual-Field Hypothesis asks:
+
+    Perhaps not exactly.
+
+If a reproducible informational residual exists, life and intelligence may then be reconsidered as possible macroscopic consequences of a previously unknown informational selection pressure.
+
+If no such residual exists, the larger teleological interpretation has no physical foundation.
+
+The immediate task is therefore:
+
+    FORGET AI.
+    FIND I.
+    MEASURE ε.
+
+Everything else comes later.
