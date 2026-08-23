@@ -6,6 +6,7 @@ ASCII).
 ```bash
 python3 dual_field_toy.py           # 2-state model   (~30 s)
 python3 dual_field_toy_3state.py    # 3-state motor   (~60 s, the N=1e6 power run is the slow part)
+python3 dual_field_toy_ratchet.py   # driven ratchet  (~60 s) — the 'information powers the motor' result
 ```
 
 ## What each computes
@@ -32,6 +33,11 @@ Each prints:
 - **3-state:** motor current `J₀≈0.235`; `δJ(ε) ≈ −0.003·ε`; `I_avg` rises
   monotonically; TUR satisfied (`E≤1`), with the field trading efficiency for
   information.
+- **driven ratchet:** the headline. A symmetric rocking drive rectifies nothing
+  without memory (`J=0`, and the dual field does nothing with no information to
+  couple to); with memory the information rectifies the drive (`J(0)≈0.0245`) and
+  the dual field amplifies it (`J(1)≈0.0293`, `δJ≈+0.004·ε`). The current is
+  entirely information-powered.
 
 Tweak the baseline physics at the top of each file (the `P1` table for the 2-state;
 `BASE_CW / BASE_CCW / BASE_STAY / INERTIA` for the 3-state) to explore other

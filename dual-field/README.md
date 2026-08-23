@@ -12,6 +12,7 @@
 | `step5-literature-survey.md` | Full Step 5 literature survey: all refs, ranked kills, survivable homes, prior-art verdict |
 | `toy/dual_field_toy.py` | 2-state toy model (numpy only) |
 | `toy/dual_field_toy_3state.py` | 3-state "information-powered motor" toy model (numpy only) |
+| `toy/dual_field_toy_ratchet.py` | driven 3-state ratchet — the clean "information powers the motor" result (numpy only) |
 | `toy/README.md` | How to run + expected output |
 
 ---
@@ -125,7 +126,32 @@ models probe different physics:
   as ε goes 0→2; higher dissipation and larger fluctuations buy the extra
   information). Thermodynamically consistent — no free bias.
 
-### 3c. How big must the experiment be (statistical power)
+### 3c. Driven ratchet — information *powers* the motor (the headline result)
+
+A 3-state ring driven by a **time-reversal-symmetric rocking** protocol (phase A
+pushes clockwise, phase B pushes counter-clockwise, equal strength & duration). A
+symmetric drive rectifies nothing *unless* the system has memory. The result:
+
+| regime | J (net current) | what it shows |
+|--------|-----------------|---------------|
+| memoryless (inertia=0), ε=0 | **0.0000** | the symmetric drive rectifies nothing |
+| memoryless (inertia=0), ε=1  | **0.0000** | **no information → the dual field can do nothing** |
+| memory (inertia=0.5), ε=0    | 0.0245 | the **information rectifies the drive** into a current |
+| memory (inertia=0.5), ε=1    | **0.0293** | the **dual field amplifies the current** (+20%) |
+
+So the directed current is **entirely information-powered**:
+1. no memory → no current (even with the dual field — there is no information to
+   couple to);
+2. memory → a current (the information rectifies the otherwise-symmetric drive);
+3. dual field (ε>0) → a *larger* current (it amplifies the information). `I_avg`
+   rises ~340% from ε=0→2.
+
+This is the cleanest physical realization of the hypothesis: the informational
+degree of freedom acts as a **fuel/resource** that converts a symmetric drive into
+a directed current, and ε is the knob. (Pre-registered residual: `δJ(ε) ≈ +0.004·ε`
+for ε>0, definite sign, O(ε).)
+
+### 3d. How big must the experiment be (statistical power)
 
 Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
 (observable = the current for the 3-state, the population for the 2-state):
@@ -141,10 +167,13 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
 2. **The reparameterization escape is the first thing to specify.** Pick the new
    degree of freedom; a coarse-grained process information is the most survivable and
    testable choice.
-3. **The predictions are now computable.** The toy model turns ε into a concrete,
-   pre-registered δ with sign, magnitude, and required trajectory length.
+3. **The predictions are now computable — and the headline works.** The toy models
+   turn ε into a concrete, pre-registered δ with sign, magnitude, and required
+   trajectory length. Best result: in the driven ratchet the directed current is
+   *entirely information-powered* (zero without memory; the dual field amplifies it,
+   §3c).
 4. **The thermodynamic price is accounted.** The dual field is not free — it trades
-   efficiency for information (TUR-consistent).
+   efficiency for information (TUR-consistent, §3b).
 5. **Main open problems:** (a) choose/justify `I` and verify it is Kent-safe (no
    superluminal signaling); (b) a "why hasn't ε been seen yet" hiding mechanism
    (the Valentini relaxation-to-equilibrium template); (c) an experimental platform +
@@ -153,11 +182,12 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
 
 ## 5. Next steps
 
-1. **Driven 3-state ratchet** — target the dramatic "information *powers* the motor"
-   enhancement + a clean TUR-saturation story (the current 3-state model shows the
-   field *modulating* an existing current; a periodic drive would let the field
-   *rectify* one from nothing).
-2. **Concrete experimental proposal** — pick a platform (single-molecule switch /
-   superconducting qubit with memory / colloidal ratchet) and state the expected δ.
-3. **The hiding mechanism + bounds** (Step 7) — bound the accessible ε from existing
-   data, using the collapse-model and Valentini templates.
+1. **Concrete experimental proposal** — pick a platform for the driven ratchet
+   (colloidal ratchet / single-molecule switch / superconducting qubit with a
+   memory qubit + periodic drive) and state the expected δ and the N needed.
+2. **The hiding mechanism + bounds** (Step 7) — bound the accessible ε from existing
+   data, using the collapse-model and Valentini templates ("why hasn't ε been seen
+   yet").
+3. **Full thermodynamics of the driven ratchet** — the entropy production + TUR for
+   the time-periodic case (the current & information are in §3c; the dissipation
+   accounting is the remaining piece that closes the generalized-second-law loop).
