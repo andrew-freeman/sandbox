@@ -14,6 +14,7 @@
 | `toy/dual_field_toy_3state.py` | 3-state "information-powered motor" toy model (numpy only) |
 | `toy/dual_field_toy_ratchet.py` | driven 3-state ratchet — the clean "information powers the motor" result (numpy only) |
 | `toy/README.md` | How to run + expected output |
+| `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
 
 ---
 
@@ -182,12 +183,13 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
 
 ## 5. Next steps
 
-1. **Concrete experimental proposal** — pick a platform for the driven ratchet
-   (colloidal ratchet / single-molecule switch / superconducting qubit with a
-   memory qubit + periodic drive) and state the expected δ and the N needed.
+1. ✅ **Concrete experimental proposal** — done: `experimental-proposal.md`
+   (two tracks: the analog information ratchet with a controllable ε-knob, and the
+   bounds program on the fundamental ε; platforms ranked, decision rules, timeline).
 2. **The hiding mechanism + bounds** (Step 7) — bound the accessible ε from existing
    data, using the collapse-model and Valentini templates ("why hasn't ε been seen
-   yet").
+   yet"). (Now a section of the proposal; the next move is to *mine the existing
+   precision data* and turn nulls into a numeric ε bound.)
 3. **Full thermodynamics of the driven ratchet** — the entropy production + TUR for
    the time-periodic case (the current & information are in §3c; the dissipation
    accounting is the remaining piece that closes the generalized-second-law loop).
