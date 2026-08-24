@@ -1,26 +1,42 @@
 #!/usr/bin/env python3
 """
-Dual-Field toy — PERIODICALLY DRIVEN 3-STATE RATCHET (the 'information powers
-the motor' target).
+Dual-Field toy — PERIODICALLY DRIVEN 3-STATE RATCHET (a CONTROL / negative result).
 
 Idea
 ----
 A 3-state ring {0,1,2} driven by a 2-phase square-wave protocol that is
-TIME-REVERSAL SYMMETRIC on its own (rocking: phase A pushes clockwise, phase B
-pushes counterclockwise, equal strength & duration).  A symmetric rocking drive
-rectifies NOTHING in the memoryless case -> baseline (eps=0, no memory) current
-is 0.  Short-range memory (inertia) lets the system break the symmetry; the
-dual field, coupling to the excess predictive information, amplifies that memory
-and is what RECTIFIES the drive into a net current.  If J(0)=0 and J(eps)>0 for
-eps>0, the current is information-powered.
+TIME-REVERSAL SYMMETRIC (rocking: phase A pushes clockwise, phase B pushes
+counterclockwise, EQUAL strength & duration T_A=T_B), with symmetric inertia.
+
+Correct result (after the periodic-steady-state convergence fix):
+  The net current J(eps) = 0 for ALL eps, to machine precision.  Reason: the
+  whole transition structure (drive + symmetric memory) is invariant under the
+  combined operation [ring reversal + phase swap + time reversal], so the
+  periodic fixed point is invariant too, which forces J = -J = 0.  In a fully
+  symmetric system the information structure I is itself symmetric, so the
+  dual field (which amplifies I) cannot break the symmetry and cannot create a
+  net current.
+
+  What DOES survive: I_avg(eps) rises monotonically with eps even at J=0 --
+  the information-selection signature is real and robust, independent of any
+  net current.  Information coupling selects information; it does not, by
+  itself, rectify a symmetric drive.
+
+  -> 'Information powers the motor from nothing' is NOT demonstrated here.
+     A net current requires a GEOMETRY/POTENTIAL asymmetry (a real ratchet),
+     which the autonomous 3-state motor model (dual_field_toy_3state.py) has;
+     there the dual field MODULATES an existing current (delta ~= -0.003 eps),
+     it does not create one.  Whether an information coupling can break the
+     symmetry of an otherwise-symmetric drive is an OPEN design problem (it
+     would require the information functional I to be direction-dependent).
 
 The dual-field coupling is identical to the other models:
     P_DF(y|a,b,phase) ∝ P_phys(y|a,b,phase) * exp(eps * I),
     I = log[ P_phys(y|a,b,phase) / P_null(phase)(y|b) ]   (excess pred. info)
 with P_null(phase) fixed from the baseline (eps=0) periodic steady state.
 
-Deliverables: periodic-steady-state net current J(eps) (the motor), the
-information content I_avg(eps), and the pre-registered residual delta(eps).
+Deliverables: periodic-steady-state net current J(eps) (expected 0 here), the
+information content I_avg(eps) (the surviving signature), and the residual.
 """
 import numpy as np
 
@@ -85,6 +101,7 @@ def periodic_ss(matrices, iters=100000):
         if np.max(np.abs(pn - pi0)) < 1e-15:
             pi0 = pn
             break
+        pi0 = pn          # advance the iterate (power iteration over the cycle map)
     pis, pi = [pi0], pi0
     for Mt in matrices:
         pi = Mt @ pi
@@ -153,22 +170,23 @@ def I_avg(eps=0.0):
 
 def main():
     print("=" * 74)
-    print("DUAL-FIELD TOY — DRIVEN 3-STATE RATCHET (information powers the motor?)")
+    print("DUAL-FIELD TOY — DRIVEN 3-STATE RATCHET (symmetric: a CONTROL result)")
     print("=" * 74)
     print(f"protocol: A(cw push,{T_A} steps) / B(ccw push,{T_B} steps);  "
-          f"rocking={ROCK}, inertia={INERTIA}")
-    print("baseline check (eps=0, symmetric rocking):")
+          f"rocking={ROCK}, inertia={INERTIA}  (time-reversal symmetric)")
+    print("EXPECTED: J(eps)=0 for all eps (the drive+memory is symmetric under")
+    print("[ring reversal + phase swap + time reversal]); I_avg still rises with eps.")
+    print(f"\n{'eps':>6} {'J(net curr)':>13} {'dJ=J-J0':>11} {'I_avg':>9}")
     J0 = current(0.0)
-    print(f"    J(0) = {J0:+.6f}   (0 if the symmetric drive rectifies nothing)")
-    # memoryless limit check: is the baseline current from memory?
-    print(f"{'eps':>6} {'J(cw curr)':>13} {'dJ=J-J0':>11} {'I_avg':>9}")
     for eps in [0.0, 0.2, 0.5, 1.0, 2.0, -1.0]:
-        print(f"{eps:6.2f} {current(eps):+13.6f} {current(eps)-J0:+11.6f} "
+        print(f"{eps:6.2f} {current(eps):+13.8f} {current(eps)-J0:+11.8f} "
               f"{I_avg(eps):+9.5f}")
-    print("\n  pre-registered residual delta(eps)=J(eps)-J(0)  (O(eps) check):")
-    for eps in [0.1, 0.2, 0.5]:
-        print(f"    eps={eps:4.2f}  delta={current(eps)-J0:+.6f}   "
-              f"delta/eps={(current(eps)-J0)/eps:+.5f}")
+    print("\n  J is 0 to machine precision for every eps  ->  the symmetric drive")
+    print("  is NOT rectified by the information coupling (no 'powering from")
+    print("  nothing').  I_avg rising with eps is the surviving signature.")
+    print("  A net current needs a geometry/potential asymmetry: see the autonomous")
+    print("  3-state motor (dual_field_toy_3state.py), where J0~=0.235 and the dual")
+    print("  field MODULATES it (delta ~= -0.003*eps) rather than creating it.")
 
     def ascii_plot(xs, ys, title, xlabel, ylabel, width=56, height=14):
         xs = np.asarray(xs, float); ys = np.asarray(ys, float)

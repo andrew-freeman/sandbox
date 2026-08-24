@@ -12,7 +12,7 @@
 | `step5-literature-survey.md` | Full Step 5 literature survey: all refs, ranked kills, survivable homes, prior-art verdict |
 | `toy/dual_field_toy.py` | 2-state toy model (numpy only) |
 | `toy/dual_field_toy_3state.py` | 3-state "information-powered motor" toy model (numpy only) |
-| `toy/dual_field_toy_ratchet.py` | driven 3-state ratchet — the clean "information powers the motor" result (numpy only) |
+| `toy/dual_field_toy_ratchet.py` | driven 3-state ratchet — a **control/negative result**: symmetric drive → J=0 for all ε (information coupling does *not* rectify a symmetric drive); I_avg still rises (numpy only) |
 | `toy/README.md` | How to run + expected output |
 | `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
 
@@ -127,30 +127,41 @@ models probe different physics:
   as ε goes 0→2; higher dissipation and larger fluctuations buy the extra
   information). Thermodynamically consistent — no free bias.
 
-### 3c. Driven ratchet — information *powers* the motor (the headline result)
+### 3c. Driven ratchet — a control result (and a correction)
 
 A 3-state ring driven by a **time-reversal-symmetric rocking** protocol (phase A
-pushes clockwise, phase B pushes counter-clockwise, equal strength & duration). A
-symmetric drive rectifies nothing *unless* the system has memory. The result:
+pushes clockwise, phase B counter-clockwise, equal strength & duration T_A=T_B),
+with symmetric inertia. The correct periodic-steady-state result:
 
-| regime | J (net current) | what it shows |
-|--------|-----------------|---------------|
-| memoryless (inertia=0), ε=0 | **0.0000** | the symmetric drive rectifies nothing |
-| memoryless (inertia=0), ε=1  | **0.0000** | **no information → the dual field can do nothing** |
-| memory (inertia=0.5), ε=0    | 0.0245 | the **information rectifies the drive** into a current |
-| memory (inertia=0.5), ε=1    | **0.0293** | the **dual field amplifies the current** (+20%) |
+| ε | J (net current) | I_avg |
+|---|-----------------|-------|
+| −1.0 | **0.0000** | −0.039 |
+| 0.00 | **0.0000** | +0.037 |
+| +1.0 | **0.0000** | +0.101 |
+| +2.0 | **0.0000** | +0.157 |
 
-So the directed current is **entirely information-powered**:
-1. no memory → no current (even with the dual field — there is no information to
-   couple to);
-2. memory → a current (the information rectifies the otherwise-symmetric drive);
-3. dual field (ε>0) → a *larger* current (it amplifies the information). `I_avg`
-   rises ~340% from ε=0→2.
+**J(ε)=0 for every ε, to machine precision.** The whole transition structure
+(drive + symmetric memory) is invariant under [ring reversal + phase swap + time
+reversal], so the periodic fixed point is invariant too, which forces J=−J=0. In a
+fully symmetric system the information structure `I` is itself symmetric, so the
+dual field (which amplifies `I`) **cannot break the symmetry and cannot create a
+net current.** What survives is `I_avg` rising monotonically with ε — information
+selection is real and robust, *independent of any net current*.
 
-This is the cleanest physical realization of the hypothesis: the informational
-degree of freedom acts as a **fuel/resource** that converts a symmetric drive into
-a directed current, and ε is the knob. (Pre-registered residual: `δJ(ε) ≈ +0.004·ε`
-for ε>0, definite sign, O(ε).)
+> **Correction.** An earlier version of this section reported J=0.0245→0.0293 and
+> claimed "information powers the motor from nothing." That was an **artifact of a
+> convergence bug** in the periodic-steady-state loop (the iterate was never
+> advanced, so the "steady state" was really a one-shot transient from a uniform
+> start). The bug is fixed; the true result is J=0. The 2-state and 3-state models
+> do **not** share the bug (verified) — §3a and §3b stand.
+
+**Takeaway:** "information powers the motor *from nothing*" is **not**
+demonstrated. A net current requires a **geometry/potential asymmetry** (a real
+ratchet). The autonomous 3-state motor (§3b) is exactly that: J₀≈0.235, where the
+dual field *modulates* the existing current (δJ≈−0.003·ε), not creates it. Whether
+an information coupling can break the symmetry of an otherwise-symmetric drive is
+an **open design problem** (it would require the information functional `I` itself
+to be direction-dependent).
 
 ### 3d. How big must the experiment be (statistical power)
 
@@ -168,28 +179,36 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
 2. **The reparameterization escape is the first thing to specify.** Pick the new
    degree of freedom; a coarse-grained process information is the most survivable and
    testable choice.
-3. **The predictions are now computable — and the headline works.** The toy models
-   turn ε into a concrete, pre-registered δ with sign, magnitude, and required
-   trajectory length. Best result: in the driven ratchet the directed current is
-   *entirely information-powered* (zero without memory; the dual field amplifies it,
-   §3c).
+3. **The predictions are now computable.** The toy models turn ε into a concrete,
+   pre-registered δ with sign, magnitude, and required trajectory length. Robust
+   results: the 2-state population residual + reversibility resonance (§3a), the
+   3-state current modulation + TUR-consistent efficiency↔information trade (§3b),
+   and information selection (`I_avg` rising with ε) in *all three* models.
 4. **The thermodynamic price is accounted.** The dual field is not free — it trades
    efficiency for information (TUR-consistent, §3b).
-5. **Main open problems:** (a) choose/justify `I` and verify it is Kent-safe (no
+5. **A negative result, kept.** "Information powers the motor *from nothing*" is
+   **not** demonstrated: a symmetric drive gives J=0 for all ε (§3c). The dual field
+   *modulates* an existing (geometry-asymmetric) current and *selects* information;
+   it does not rectify a symmetric drive.
+6. **Main open problems:** (a) choose/justify `I` and verify it is Kent-safe (no
    superluminal signaling); (b) a "why hasn't ε been seen yet" hiding mechanism
    (the Valentini relaxation-to-equilibrium template); (c) an experimental platform +
-   realistic ε bounds (the CSL lesson — existing interferometry/astrophysics may
-   already constrain the accessible range).
+   realistic ε bounds (the CSL lesson); **(d) can an information coupling break the
+   symmetry of an otherwise-symmetric drive at all?** (open — would need a
+   direction-dependent `I`; §3c).
 
 ## 5. Next steps
 
-1. ✅ **Concrete experimental proposal** — done: `experimental-proposal.md`
-   (two tracks: the analog information ratchet with a controllable ε-knob, and the
-   bounds program on the fundamental ε; platforms ranked, decision rules, timeline).
-2. **The hiding mechanism + bounds** (Step 7) — bound the accessible ε from existing
-   data, using the collapse-model and Valentini templates ("why hasn't ε been seen
-   yet"). (Now a section of the proposal; the next move is to *mine the existing
-   precision data* and turn nulls into a numeric ε bound.)
-3. **Full thermodynamics of the driven ratchet** — the entropy production + TUR for
-   the time-periodic case (the current & information are in §3c; the dissipation
-   accounting is the remaining piece that closes the generalized-second-law loop).
+1. **Revise `experimental-proposal.md`.** Its Track 1 was framed on "information
+   powers the motor from nothing," which the fixed §3c shows is an artifact. The
+   reframe: Track 1 = a **geometry-asymmetric** analog ratchet (nonzero J₀) where the
+   ε-knob *modulates* the current (the §3b result) + the information-selection
+   signature; "powering from nothing" becomes an **open hypothesis** (open problem d),
+   not a predicted signature. (Track 2 — the bounds program — is unaffected.)
+2. **Open problem (d): can an information coupling break the symmetry of an
+   otherwise-symmetric drive?** It would require the information functional `I` to be
+   direction-dependent (not invariant under ring reversal). Constructing (or
+   ruling out) such an `I` is the most interesting open question the models surfaced.
+3. **The hiding mechanism + bounds** (Step 7) — mine existing precision
+   fluctuation-theorem / TUR / Born-rule data and turn nulls into a **numeric ε
+   bound** (collapse-model + Valentini templates).

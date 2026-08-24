@@ -33,11 +33,13 @@ Each prints:
 - **3-state:** motor current `J₀≈0.235`; `δJ(ε) ≈ −0.003·ε`; `I_avg` rises
   monotonically; TUR satisfied (`E≤1`), with the field trading efficiency for
   information.
-- **driven ratchet:** the headline. A symmetric rocking drive rectifies nothing
-  without memory (`J=0`, and the dual field does nothing with no information to
-  couple to); with memory the information rectifies the drive (`J(0)≈0.0245`) and
-  the dual field amplifies it (`J(1)≈0.0293`, `δJ≈+0.004·ε`). The current is
-  entirely information-powered.
+- **driven ratchet (control/negative):** a time-reversal-symmetric rocking drive
+  gives **`J(ε)=0` for all ε** (to machine precision) — the information coupling
+  does *not* rectify a symmetric drive (in a symmetric system `I` is itself
+  symmetric, so amplifying it can't break the symmetry). `I_avg` still rises
+  monotonically with ε (information selection survives, independent of current).
+  A net current needs a geometry asymmetry → see the 3-state motor. (An earlier
+  "J=0.0245→0.0293" reading was a convergence-bug artifact; fixed.)
 
 Tweak the baseline physics at the top of each file (the `P1` table for the 2-state;
 `BASE_CW / BASE_CCW / BASE_STAY / INERTIA` for the 3-state) to explore other

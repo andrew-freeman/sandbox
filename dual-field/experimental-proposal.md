@@ -23,11 +23,15 @@ the accessible ε to nearly zero; (b) the Valentini lesson — any such deviatio
 - **Track 1 — the analog (mechanism, testable in ~1–2 yrs, publishable on its
   own).** Build a real ratchet in which the "information coupling" is a
   **controllable knob** (a feedback "demon" whose gain κ plays the role of ε).
-  This (i) proves the mechanism is real — information *powers* the motor, (ii)
-  proves the signature is *measurable*, (iii) identifies the cleanest observable
-  and the confounds, and (iv) gives you a **calibrated template of exactly what
-  the ε-signature looks like**. It's a genuine new device: an
-  *information-powered ratchet*.
+  It runs **two sub-experiments**: (1a) a **symmetric** ratchet — the model
+  predicts J=0 for *all* κ (the information coupling cannot rectify a symmetric
+  drive; a clean confirmation of the symmetry argument); (1b) a **geometry-
+  asymmetric** ratchet (nonzero J₀) — the model predicts the ε-knob *modulates*
+  the existing current (J(κ)=J₀+δJ(κ)) and raises the information content.
+  Together these (i) prove the mechanism is real and *measurable*, (ii) cleanly
+  separate "does information *create* a current" (no, by symmetry) from "does it
+  *modulate* one" (yes), and (iii) give a **calibrated template of the ε-
+  signature** (current + information + dissipation, moving together).
 - **Track 2 — the bounds (fundamental, mostly analysis + one precision
   measurement).** Use the theory + existing high-precision data to **upper-bound
   the fundamental ε**, and design a targeted search in the regime where ε would
@@ -120,24 +124,34 @@ is a reasonable middle path if either of the above is inaccessible.
 | current J | net hopping rate around ring | net transition rate around ring |
 | Sdot | heat to bath (from trajectory) | heat/work (from control + state) |
 
-### 2.4 Predicted signatures (pre-registered, from the ratchet model)
+### 2.4 Predicted signatures (pre-registered, from the toy models)
 
-Measured as functions of κ (the ε-analog):
+**Sub-experiment 1a — symmetric ratchet (control).** Measured vs κ:
+1. **J(κ) = 0 for *all* κ** — the information coupling does *not* rectify a
+   symmetric drive (the model's §3c control result, now verified to machine
+   precision). A nonzero J here would *break* the symmetry argument — that would
+   be the "powering from nothing" signal, treated as the open hypothesis (d).
+2. **I(κ) rises monotonically** — information selection, independent of current.
 
-1. **J(κ=0) = 0** — the symmetric drive rectifies nothing (control).
-2. **J(κ>0) > 0** — information rectifies the drive.
-3. **δJ = J(κ)−J(0) > 0**, and **δJ ≈ c·κ** for small κ (toy: c≈+0.004 in model
-   units; +20% at κ=1) — *information powers the motor*.
-4. **I(κ) rises monotonically** (toy: ~340% from κ=0→2) — information selection.
-5. **TUR satisfied:** E = 2J²/(D·Sdot) ≤ 1, and the device **trades efficiency
-   for information** (E↓ while I↑ as κ↑).
+**Sub-experiment 1b — geometry-asymmetric ratchet (nonzero J₀).** Measured vs κ:
+3. **J(κ) = J₀ + δJ(κ)**, J₀≠0 (standard physics), and **δJ(κ) ≈ c·κ** for small κ
+   (toy 3-state: c≈−0.003 in model units; sign parameter-dependent) — the ε-knob
+   *modulates* an existing current.
+4. **I(κ) rises monotonically** (information selection).
+5. **TUR satisfied:** E = 2J²/(D·Sdot) ≤ 1, and the device **trades efficiency for
+   information** (E↓ while I↑ as κ↑).
+
+The joint (J, I, Sdot) manifold vs κ is what carries the signal — a single number
+at a single κ is not.
 
 ### 2.5 Decision rules (what the data means)
 
-- **J(0)=0, J(κ)>0, δJ∝κ** → mechanism validated (information powers the motor).
-- **(J, I, Sdot) vs κ all trace the toy curve jointly** → theory confirmed at the
-  mechanism level (a reparameterization can fit one number, not the whole
-  manifold).
+- **1a: J(κ)=0 for all κ** → the symmetry holds (negative result confirmed;
+  information does *not* create a current from a symmetric drive). A nonzero J(κ)
+  here would be the "powering from nothing" signal — the open hypothesis (d) firing.
+- **1b: J(κ)=J₀+δJ(κ) with δJ∝κ, and (J, I, Sdot) vs κ all trace the toy curve
+  jointly** → theory confirmed at the mechanism level (information *modulates* the
+  current; a reparameterization can fit one number, not the whole manifold).
 - **A state-only (memoryless) feedback reproduces it** → it was a
   reparameterization; the hypothesis's mechanism is *weakened* (important
   negative — keep it).
@@ -195,7 +209,7 @@ predict *where it hides and where it leaks* — that prediction is what makes Tr
 
 | knob | what it does | measure | expected δ (toy units) | N to resolve | do next |
 |---|---|---|---|---|---|
-| κ (feedback gain = ε-analog) | turns the information effect up/down | J, D, Sdot, I | δJ≈+0.004·κ; I +340% (κ 0→2) | ~10³–10⁴ hops (κ is large → easy) | sweep κ; fit δJ(κ) |
+| κ (feedback gain = ε-analog) | turns the information effect up/down | J, D, Sdot, I | 1a: J stays 0; 1b: δJ≈c·κ (3-state c≈−0.003, sign param-dep); I rises ~340% (κ 0→2) | ~10³–10⁴ hops (κ is large → easy) | sweep κ; fit δJ(κ) + the (J,I,Sdot) manifold |
 | memory depth (1→2 states) | sets how much history the demon uses | J, I | 2nd-order > 1st-order | ~10⁴ | confirm I needs the 2nd order |
 | drive asymmetry / duration | sets the rectification ceiling | J(κ=0) | J(0) should stay ≈0 | ~10³ | verify the null (symmetric) |
 | history vs state-only feedback | the reparameterization discriminator | J | state-only can't reach the history value | ~10⁴ | run both; compare |
@@ -215,7 +229,7 @@ easy (10³–10⁴ hops). The 10⁵–10⁶-hop requirement is for the *fundamen
 | colloidal heat/entropy accounting is noisy | Sdot/TUR leg is soft on the colloidal platform | superconducting qutrit for the clean TUR; treat colloidal as the mechanism proof, not the precision instrument |
 | feedback latency smears the history channel | the demon can't actually read the past fast enough | verify κ-bandwidth >> hopping rate; otherwise the "history" collapses to "state" (a tell) |
 | ε already bounded to ~0 by Track-2 existing data | fundamental detection is dead near-term | the bounds are still the result; pivot the program to the mechanism (Track 1) + the hiding-mechanism prediction |
-| the analog is "just a known Maxwell's demon" | novelty questioned | the contribution is the *ratchet + information-powers-the-current* result + the ε-signature template, not "a demon exists" |
+| the analog is "just a known Maxwell's demon" | novelty questioned | the contribution is the *ratchet + the (J,I,Sdot) ε-signature template + the clean symmetry/modulation separation (1a vs 1b)*, not "a demon exists" |
 
 ---
 
@@ -241,8 +255,11 @@ easy (10³–10⁴ hops). The 10⁵–10⁶-hop requirement is for the *fundamen
 ## 7. Bottom line
 
 You can't switch ε on in nature yet — so **build it as a knob in a real ratchet
-(Track 1)**: prove information powers the motor, prove it's measurable, and learn
-the exact shape of the signature. Then **point that template at an unforced
+(Track 1)**: prove the effect is real and measurable, and learn the exact shape of
+the signature. The model's honest predictions: information **modulates** an
+existing (geometry-asymmetric) current and **selects** information, but does **not**
+rectify a symmetric drive (J=0 for all κ) — so Track 1 runs the symmetric control
+(1a) *and* the asymmetric ratchet (1b). Then **point that template at an unforced
 precision system (Track 2)** and either detect ε or bound it. The reparameterization
 kill is closed *by design* (history-dependent feedback + the state-only null).
 This turns a speculative seed into a two-track, falsifiable, instrumented program.
