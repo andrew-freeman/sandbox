@@ -23,15 +23,18 @@ the accessible ε to nearly zero; (b) the Valentini lesson — any such deviatio
 - **Track 1 — the analog (mechanism, testable in ~1–2 yrs, publishable on its
   own).** Build a real ratchet in which the "information coupling" is a
   **controllable knob** (a feedback "demon" whose gain κ plays the role of ε).
-  It runs **two sub-experiments**: (1a) a **symmetric** ratchet — the model
-  predicts J=0 for *all* κ (the information coupling cannot rectify a symmetric
-  drive; a clean confirmation of the symmetry argument); (1b) a **geometry-
-  asymmetric** ratchet (nonzero J₀) — the model predicts the ε-knob *modulates*
-  the existing current (J(κ)=J₀+δJ(κ)) and raises the information content.
-  Together these (i) prove the mechanism is real and *measurable*, (ii) cleanly
-  separate "does information *create* a current" (no, by symmetry) from "does it
-  *modulate* one" (yes), and (iii) give a **calibrated template of the ε-
-  signature** (current + information + dissipation, moving together).
+  It runs **three sub-experiments**: (1a) a **symmetric** ratchet + **symmetric**
+  feedback — the model predicts J=0 for *all* κ (a neutral information coupling
+  cannot rectify a symmetric drive; confirms the symmetry argument); (1a′) a
+  **symmetric** ratchet + **chiral** feedback — the model predicts **J≈0.16·κ**,
+  and *flipping the handedness flips J* (information + a chiral reference drives a
+  current; the direction is an input to the feedback rule); (1b) a **geometry-
+  asymmetric** ratchet (nonzero J₀) + feedback — the ε-knob *modulates* the existing
+  current (J(κ)=J₀+δJ(κ)). Together these (i) prove the mechanism is real and
+  *measurable*, (ii) cleanly separate the three cases — "create from nothing" (no,
+  by symmetry), "create with a chiral reference" (yes), "modulate" (yes) — and (iii)
+  give a **calibrated template of the ε-signature** (current + information +
+  dissipation, moving together).
 - **Track 2 — the bounds (fundamental, mostly analysis + one precision
   measurement).** Use the theory + existing high-precision data to **upper-bound
   the fundamental ε**, and design a targeted search in the regime where ε would
@@ -133,22 +136,38 @@ is a reasonable middle path if either of the above is inaccessible.
    be the "powering from nothing" signal, treated as the open hypothesis (d).
 2. **I(κ) rises monotonically** — information selection, independent of current.
 
+**Sub-experiment 1a′ — symmetric ratchet + chiral feedback (the §3d result).**
+The feedback rule is *chiral* (S-odd): after a cw hop it favors informative
+outcomes, after a ccw hop it favors anti-informative ones (chirality = the
+handedness). Measured vs κ:
+2′. **J(κ) ≈ 0.16·κ** (clean O(κ)) — information + a chiral reference *drives* a
+   current from a symmetric drive.
+3′. **Flip the handedness → J flips sign** (J(+handed)+J(−handed)≈0) — the current
+   is an *odd function of the chirality*, localizing the source of the direction to
+   the feedback rule's handedness, not to the information per se.
+
 **Sub-experiment 1b — geometry-asymmetric ratchet (nonzero J₀).** Measured vs κ:
-3. **J(κ) = J₀ + δJ(κ)**, J₀≠0 (standard physics), and **δJ(κ) ≈ c·κ** for small κ
+4. **J(κ) = J₀ + δJ(κ)**, J₀≠0 (standard physics), and **δJ(κ) ≈ c·κ** for small κ
    (toy 3-state: c≈−0.003 in model units; sign parameter-dependent) — the ε-knob
    *modulates* an existing current.
-4. **I(κ) rises monotonically** (information selection).
-5. **TUR satisfied:** E = 2J²/(D·Sdot) ≤ 1, and the device **trades efficiency for
+5. **I(κ) rises monotonically** (information selection).
+6. **TUR satisfied:** E = 2J²/(D·Sdot) ≤ 1, and the device **trades efficiency for
    information** (E↓ while I↑ as κ↑).
 
 The joint (J, I, Sdot) manifold vs κ is what carries the signal — a single number
-at a single κ is not.
+at a single κ is not. The 1a / 1a′ / 1b split is the whole point: it separates
+*create-from-nothing* (no), *create-with-a-chiral-reference* (yes), and *modulate*
+(yes).
 
 ### 2.5 Decision rules (what the data means)
 
-- **1a: J(κ)=0 for all κ** → the symmetry holds (negative result confirmed;
-  information does *not* create a current from a symmetric drive). A nonzero J(κ)
-  here would be the "powering from nothing" signal — the open hypothesis (d) firing.
+- **1a: J(κ)=0 for all κ** → the symmetry holds (a *neutral* information coupling
+  does *not* create a current from a symmetric drive). A nonzero J(κ) *here* (with
+  symmetric feedback) would contradict the symmetry argument — it would mean the
+  feedback is secretly chiral, so check the rule's handedness.
+- **1a′: J(κ)≈0.16·κ and flipping the handedness flips J** → the §3d result
+  reproduced: information + a chiral reference drives a current; the direction is
+  an input to the feedback rule (the Onsager–Casimir / reciprocity content).
 - **1b: J(κ)=J₀+δJ(κ) with δJ∝κ, and (J, I, Sdot) vs κ all trace the toy curve
   jointly** → theory confirmed at the mechanism level (information *modulates* the
   current; a reparameterization can fit one number, not the whole manifold).
@@ -256,13 +275,16 @@ easy (10³–10⁴ hops). The 10⁵–10⁶-hop requirement is for the *fundamen
 
 You can't switch ε on in nature yet — so **build it as a knob in a real ratchet
 (Track 1)**: prove the effect is real and measurable, and learn the exact shape of
-the signature. The model's honest predictions: information **modulates** an
-existing (geometry-asymmetric) current and **selects** information, but does **not**
-rectify a symmetric drive (J=0 for all κ) — so Track 1 runs the symmetric control
-(1a) *and* the asymmetric ratchet (1b). Then **point that template at an unforced
-precision system (Track 2)** and either detect ε or bound it. The reparameterization
-kill is closed *by design* (history-dependent feedback + the state-only null).
-This turns a speculative seed into a two-track, falsifiable, instrumented program.
+the signature. The model's honest predictions: a *neutral* information coupling
+**modulates** an existing current, **selects** information, but does **not** rectify
+a symmetric drive (J=0 for all κ); a *chiral* one **does** drive a current (J≈
+0.16·κ), with the direction an input to the rule. So Track 1 runs all three — the
+symmetric control (1a), the chiral drive (1a′), and the asymmetric ratchet (1b) —
+which cleanly separates create-from-nothing / create-with-a-reference / modulate.
+Then **point that template at an unforced precision system (Track 2)** and either
+detect ε or bound it. The reparameterization kill is closed *by design*
+(history-dependent feedback + the state-only null). This turns a speculative seed
+into a two-track, falsifiable, instrumented program.
 
 ---
 

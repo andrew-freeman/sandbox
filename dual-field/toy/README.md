@@ -6,7 +6,8 @@ ASCII).
 ```bash
 python3 dual_field_toy.py           # 2-state model   (~30 s)
 python3 dual_field_toy_3state.py    # 3-state motor   (~60 s, the N=1e6 power run is the slow part)
-python3 dual_field_toy_ratchet.py   # driven ratchet  (~60 s) — the 'information powers the motor' result
+python3 dual_field_toy_ratchet.py   # driven ratchet  (~60 s) — symmetric drive: a control/negative result (J=0)
+python3 dual_field_toy_chiral.py    # open problem (d) (~60 s) — a chiral (S-odd) I that DOES break the symmetry (J≈0.16·ε)
 ```
 
 ## What each computes
@@ -40,6 +41,13 @@ Each prints:
   monotonically with ε (information selection survives, independent of current).
   A net current needs a geometry asymmetry → see the 3-state motor. (An earlier
   "J=0.0245→0.0293" reading was a convergence-bug artifact; fixed.)
+- **chiral I (open problem (d)):** a *direction-dependent* (S-odd) information
+  functional — chiral predictive information `I_chir = sgn(a→b)·log[P_phys/P_null]`
+  — **does** break the symmetry of the symmetric drive and drives a current:
+  `J ≈ 0.16·ε` (clean O(ε)), and **flipping the handedness flips the current**. A
+  *neutral* (S-even) `I` gives J=0. So the dual field drives a current iff the
+  information functional carries a handedness — the direction is an *input* to `I`,
+  not an output (the Onsager–Casimir / reciprocity principle, made concrete).
 
 Tweak the baseline physics at the top of each file (the `P1` table for the 2-state;
 `BASE_CW / BASE_CCW / BASE_STAY / INERTIA` for the 3-state) to explore other

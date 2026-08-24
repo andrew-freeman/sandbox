@@ -13,6 +13,7 @@
 | `toy/dual_field_toy.py` | 2-state toy model (numpy only) |
 | `toy/dual_field_toy_3state.py` | 3-state "information-powered motor" toy model (numpy only) |
 | `toy/dual_field_toy_ratchet.py` | driven 3-state ratchet — a **control/negative result**: symmetric drive → J=0 for all ε (information coupling does *not* rectify a symmetric drive); I_avg still rises (numpy only) |
+| `toy/dual_field_toy_chiral.py` | open problem (d) — a **direction-dependent (S-odd) `I`** (chiral predictive information) that *does* break the symmetry and drives a current (J≈0.16·ε); the direction comes from the handedness in `I` (numpy only) |
 | `toy/README.md` | How to run + expected output |
 | `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
 
@@ -156,14 +157,52 @@ selection is real and robust, *independent of any net current*.
 > do **not** share the bug (verified) — §3a and §3b stand.
 
 **Takeaway:** "information powers the motor *from nothing*" is **not**
-demonstrated. A net current requires a **geometry/potential asymmetry** (a real
-ratchet). The autonomous 3-state motor (§3b) is exactly that: J₀≈0.235, where the
-dual field *modulates* the existing current (δJ≈−0.003·ε), not creates it. Whether
-an information coupling can break the symmetry of an otherwise-symmetric drive is
-an **open design problem** (it would require the information functional `I` itself
-to be direction-dependent).
+demonstrated with a *neutral* `I`. A net current requires the perturbation to
+carry the broken symmetry. §3d resolves the open design problem.
 
-### 3d. How big must the experiment be (statistical power)
+### 3d. Open problem (d) — a direction-dependent `I` (RESOLVED)
+
+Can an information coupling break the symmetry of an otherwise-symmetric drive?
+**Yes — but only if `I` itself carries a handedness.**
+
+**The argument.** The current `J` is **S-odd** under S = [ring reversal + phase
+swap + time reversal]; the base `P_phys` is S-even. So `exp(ε·I)` can break S
+(allowing `J≠0`) **only if `I` is S-odd** (`I∘S = −I`). Any `I` *derived from* the
+symmetric `P_phys` — e.g. the excess predictive information
+`log[P_phys(y|a,b)/P_null(y|b)]` — is **S-even**, so it cannot break S (→ the §3c
+control, J=0). To drive a current, `I` must carry its own handedness.
+
+**The construction — chiral predictive information:**
+```
+I_chir(a,b,y) = sgn(a→b) · log[ P_phys(y|a,b) / P_null(y|b) ]
+```
+The excess predictive information (a genuine information measure), signed by the
+direction of the memory. Under S the memory direction flips (sgn→−sgn) while the
+log-ratio is invariant → `I_chir → −I_chir` (S-odd). For ε>0 the dual field
+*favors informative outcomes after a cw hop, anti-informative after a ccw hop*.
+
+| `I` type | ε=0.5 | ε=1.0 | ε=2.0 |
+|---|---|---|---|
+| symmetric (S-even) — control | **0.0000** | **0.0000** | **0.0000** |
+| chiral +1 (S-odd) | +0.0809 | **+0.1603** | +0.3101 |
+| chiral −1 (S-odd) | −0.0809 | **−0.1603** | −0.3101 |
+
+S-even `I` → J=0; S-odd `I` → J=+0.16·ε (clean O(ε), J/ε≈0.162); **flipping the
+handedness flips the current** (`J(+1)+J(−1)≈10⁻¹⁶`) — the direction is an *odd
+function of the chirality in `I`*.
+
+**Interpretation (the physical content).** This is a concrete instance of the
+**Onsager–Casimir / reciprocity principle**: a steady current (a T-odd quantity)
+cannot arise in T-symmetric dynamics under a T-even perturbation — a T-odd
+("magnetic-field-like") term is required. The dual field's information coupling is
+T-even ("temperature-like") when `I` is symmetric, T-odd ("magnetic-field-like")
+when `I` is chiral. So: **the dual field drives a current iff the information
+functional carries a handedness.** The information part is real (predictive
+information); **the direction is an input to `I`, not an output** — "information
+from nothing" is ruled out, "information + a chiral reference powers the motor"
+is a constructed, quantitative result (J≈0.16·ε).
+
+### 3e. How big must the experiment be (statistical power)
 
 Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
 (observable = the current for the 3-state, the population for the 2-state):
@@ -186,29 +225,32 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
    and information selection (`I_avg` rising with ε) in *all three* models.
 4. **The thermodynamic price is accounted.** The dual field is not free — it trades
    efficiency for information (TUR-consistent, §3b).
-5. **A negative result, kept.** "Information powers the motor *from nothing*" is
-   **not** demonstrated: a symmetric drive gives J=0 for all ε (§3c). The dual field
-   *modulates* an existing (geometry-asymmetric) current and *selects* information;
-   it does not rectify a symmetric drive.
+5. **The symmetry result (negative + positive).** A *neutral* (S-even) `I` gives
+   J=0 for all ε (§3c) — information alone cannot rectify a symmetric drive. But a
+   *chiral* (S-odd) `I` — chiral predictive information — **does** drive a current
+   (J≈0.16·ε), with the direction an *odd function of the handedness in `I`* (§3d).
+   The dual field drives a current **iff** the information functional carries a
+   handedness; the direction is an input, not an output. This is the Onsager–Casimir
+   / reciprocity principle made concrete for the dual field.
 6. **Main open problems:** (a) choose/justify `I` and verify it is Kent-safe (no
    superluminal signaling); (b) a "why hasn't ε been seen yet" hiding mechanism
    (the Valentini relaxation-to-equilibrium template); (c) an experimental platform +
-   realistic ε bounds (the CSL lesson); **(d) can an information coupling break the
-   symmetry of an otherwise-symmetric drive at all?** (open — would need a
-   direction-dependent `I`; §3c).
+   realistic ε bounds (the CSL lesson); (d) ~~can an information coupling break the
+   symmetry?~~ **RESOLVED** (§3d) — yes, with a chiral `I`; the direction is an input.
 
 ## 5. Next steps
 
-1. **Revise `experimental-proposal.md`.** Its Track 1 was framed on "information
-   powers the motor from nothing," which the fixed §3c shows is an artifact. The
-   reframe: Track 1 = a **geometry-asymmetric** analog ratchet (nonzero J₀) where the
-   ε-knob *modulates* the current (the §3b result) + the information-selection
-   signature; "powering from nothing" becomes an **open hypothesis** (open problem d),
-   not a predicted signature. (Track 2 — the bounds program — is unaffected.)
-2. **Open problem (d): can an information coupling break the symmetry of an
-   otherwise-symmetric drive?** It would require the information functional `I` to be
-   direction-dependent (not invariant under ring reversal). Constructing (or
-   ruling out) such an `I` is the most interesting open question the models surfaced.
-3. **The hiding mechanism + bounds** (Step 7) — mine existing precision
+1. **Add the chiral sub-experiment to `experimental-proposal.md`.** Track 1 now has
+   three parts: (1a) symmetric ratchet + *symmetric* feedback → J=0 (information
+   alone can't drive a current); (1a′) symmetric ratchet + *chiral* feedback → J≈
+   0.16·ε (information + chiral reference drives a current; flip the handedness →
+   flip J); (1b) geometry-asymmetric ratchet + feedback → modulation. This cleanly
+   localizes the source of any current (the handedness) and is the §3d result made
+   experimental.
+2. **The hiding mechanism + bounds** (Step 7) — mine existing precision
    fluctuation-theorem / TUR / Born-rule data and turn nulls into a **numeric ε
    bound** (collapse-model + Valentini templates).
+3. **Characterize the chiral current's thermodynamics** — the entropy production +
+   TUR for the chiral (S-odd) case: the chiral current is a T-odd output, so its
+   dissipation cost and the "magnetic-field" accounting (the handedness as a
+   thermodynamic variable) is the natural next analysis.
