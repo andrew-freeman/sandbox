@@ -14,6 +14,8 @@
 | `toy/dual_field_toy_3state.py` | 3-state "information-powered motor" toy model (numpy only) |
 | `toy/dual_field_toy_ratchet.py` | driven 3-state ratchet — a **control/negative result**: symmetric drive → J=0 for all ε (information coupling does *not* rectify a symmetric drive); I_avg still rises (numpy only) |
 | `toy/dual_field_toy_chiral.py` | open problem (d) — a **direction-dependent (S-odd) `I`** (chiral predictive information) that *does* break the symmetry and drives a current (J≈0.16·ε); the direction comes from the handedness in `I` (numpy only) |
+| `toy/dual_field_toy_depth.py` | "I = computational difficulty" (simulation idea) — confirms the **variance catastrophe** of reweighting by global compressed length (ESS/N collapses, ε_crit~1/√L) and shows the **local additive surprise** localizes (Doob) and is well-posed (numpy only) |
+| `claude.md`, `openai.md` | two external AI answers to "what is I?" (the simulation/computational-difficulty idea) |
 | `toy/README.md` | How to run + expected output |
 | `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
 
