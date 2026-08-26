@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
 """
+*** CORRECTED / SUPERSEDED by dual_field_toy_depth4.py (ChatGPT round-3 review) ***
+The central premise here -- "a long xi forces ~xi sequential steps; you cannot
+shortcut the causal chain" (xi used as a proxy for irreducible depth) -- is
+FALSE: the chain x_t = x_{t-1} XOR f_t is computed in O(log N) depth by a PARALLEL
+PREFIX (scan), so xi is NOT a lower bound on circuit depth. depth4 CONSTRUCTS the
+shortcut and MEASURES D_causal (N) vs D_min (log2 N) vs xi, showing the real
+ambiguity: the dual field must specify whether it weights the ACTUAL CAUSAL depth
+or the MINIMUM generative depth. Also: the "reparameterization trap" framing was
+too strong -- the new ingredient is the coupling epsilon (P~e^{-beta E} analogy),
+and the substantive content is one universal eps predicting across experiments.
+*** (Read depth4 before relying on this file.) ***
+
 Dual-Field toy — depth3: is IRREDUCIBLE computational depth a NEW degree of freedom?
 
 The strict question (from OpenAI's round-2 review):

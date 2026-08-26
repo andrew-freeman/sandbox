@@ -16,18 +16,29 @@
 | `toy/dual_field_toy_chiral.py` | open problem (d) — a **direction-dependent (S-odd) `I`** (chiral predictive information) that *does* break the symmetry and drives a current (J≈0.16·ε); the direction comes from the handedness in `I` (numpy only) |
 | `toy/dual_field_toy_depth.py` | reweighting global vs local (corrected) — the ESS/measure-overlap collapse for global compressed length (any *extensive* observable, additive or not; ε_crit~1/√L) vs LOCAL additive functionals that localize (raw **surprisal** P^(1−ε), ε=1→fair coin, and **EPI**), kept as two distinct rules (numpy only) |
 | `toy/dual_field_toy_depth2.py` | step 1 (corrected) — separates **surprisal (S) ≠ persistence (R) ≠ short-range memory (EPI)**; the long ξ of an order-1 chain is *persistence* (a local-dynamics property), **not** computational depth (numpy only) |
-| `toy/dual_field_toy_depth3.py` | step 2 — **irreducible** computational depth is a *function of P_phys*: the attempt to build "matched statistics, different irreducible cost" **fails** (ξ is a deterministic fn of the dynamic; only *cancelling* computation changes the total, not irreducible, size) → "I = irreducible depth" is **not** a new degree of freedom (numpy only) |
+| `toy/dual_field_toy_depth3.py` | step 2 — **SUPERSEDED by depth4**: its premise (ξ is a lower bound on circuit depth) is false (parallel-prefix shortcut); the "reparameterization trap" framing was too strong (the new ingredient is the coupling ε) |
+| `toy/dual_field_toy_depth4.py` | step 3 — CONSTRUCTS the shortcut: the SAME trajectory realized sequentially (D_causal=N) and by parallel prefix scan (D_min=log2 N), **measured** (A==B verified); ξ≈50 is a third quantity with D_min<ξ → the real ambiguity is the **D_causal vs D_min fork** (numpy only) |
+| `review-round3-openai.md` | round 3 — ChatGPT review of depth3: refutes the ξ-bound (parallel prefix), separates size vs depth, names the D_causal/D_min ontological fork, softens the reparameterization objection |
 | `claude.md`, `openai.md` | round 1 — two external AI answers to "what is I?" (the simulation/computational-difficulty idea) |
 | `review-round2-claude.md`, `review-round2-openai.md` | round 2 — external review of the two depth scripts; caught the surprisal-vs-EPI mismatch (both, independently) and the persistence-vs-depth overreach |
 
-**The S/R/K/D taxonomy (from round-2 review).** Four candidates that must not be
-called by one symbol: **S** = surprisal/entropy rate (local, well-posed); **R** =
-persistence/correlation time (a property of local dynamics, emergently long-range);
-**K** = description/compression length (global, non-additive → measure-overlap
-collapse); **D** = computational depth (Bennett's logical depth: irreducible
-sequential generation cost — genuinely global, generative, non-localizable; the one
-the simulation intuition points to). The local, well-posed machinery captures S and
-EPI (no new mechanism); **D is the distinctive, hard, global half.**
+**The S/R/K/D taxonomy (round-2 review; D refined in round-3).** Candidates that
+must not be called by one symbol: **S** = surprisal/entropy rate (local, well-posed);
+**R** = persistence/correlation time (a property of local dynamics, emergently
+long-range); **K** = description/compression length (global, non-additive →
+measure-overlap collapse); **D** = computational depth (Bennett's logical depth:
+irreducible sequential generation cost). The local, well-posed machinery captures S
+and EPI (no new mechanism); **D is the distinctive, hard, global half.** **Round-3
+refinement:** "depth" is not one quantity — there is a fork (depth4):
+**D_causal** = the actual causal depth (how the universe *really* propagates:
+streaming, step-by-step, = N) vs **D_min** = the minimum generative depth (the
+shallowest circuit that reproduces the trajectory, shortcuts allowed, = O(log N) via
+parallel prefix). The same trajectory has *both*, and they differ by N/log N. ξ (R)
+is a third quantity and is **not** a lower bound on D_min. So "I = depth" is
+**undefined until the D_causal/D_min fork is settled** — choosing either gives
+different physics. (And the new ingredient is the *coupling* ε≠0, not a new state
+variable — the "reparameterization" objection is not substantive, since any
+modification can be renamed into P'_phys.)
 | `toy/README.md` | How to run + expected output |
 | `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
 
