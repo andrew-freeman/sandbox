@@ -14,9 +14,19 @@
 | `toy/dual_field_toy_3state.py` | 3-state "information-powered motor" toy model (numpy only) |
 | `toy/dual_field_toy_ratchet.py` | driven 3-state ratchet — a **control/negative result**: symmetric drive → J=0 for all ε (information coupling does *not* rectify a symmetric drive); I_avg still rises (numpy only) |
 | `toy/dual_field_toy_chiral.py` | open problem (d) — a **direction-dependent (S-odd) `I`** (chiral predictive information) that *does* break the symmetry and drives a current (J≈0.16·ε); the direction comes from the handedness in `I` (numpy only) |
-| `toy/dual_field_toy_depth.py` | "I = computational difficulty" (simulation idea) — confirms the **variance catastrophe** of reweighting by global compressed length (ESS/N collapses, ε_crit~1/√L) and shows the **local additive surprise** localizes (Doob) and is well-posed (numpy only) |
-| `toy/dual_field_toy_depth2.py` | step 1 of the depth idea — shows **depth (how far back the history matters) separates from surprise** (complementary, opposite-sign axes: slow chain = low surprise, high depth) and that the **local** EPI sees only short-range (order-k) memory, **not** long-range depth → "I = depth" is a **global** hypothesis (numpy only) |
-| `claude.md`, `openai.md` | two external AI answers to "what is I?" (the simulation/computational-difficulty idea) |
+| `toy/dual_field_toy_depth.py` | reweighting global vs local (corrected) — the ESS/measure-overlap collapse for global compressed length (any *extensive* observable, additive or not; ε_crit~1/√L) vs LOCAL additive functionals that localize (raw **surprisal** P^(1−ε), ε=1→fair coin, and **EPI**), kept as two distinct rules (numpy only) |
+| `toy/dual_field_toy_depth2.py` | step 1 (corrected) — separates **surprisal (S) ≠ persistence (R) ≠ short-range memory (EPI)**; the long ξ of an order-1 chain is *persistence* (a local-dynamics property), **not** computational depth → the distinctive candidate (depth D) is genuinely global (numpy only) |
+| `claude.md`, `openai.md` | round 1 — two external AI answers to "what is I?" (the simulation/computational-difficulty idea) |
+| `review-round2-claude.md`, `review-round2-openai.md` | round 2 — external review of the two depth scripts; caught the surprisal-vs-EPI mismatch (both, independently) and the persistence-vs-depth overreach |
+
+**The S/R/K/D taxonomy (from round-2 review).** Four candidates that must not be
+called by one symbol: **S** = surprisal/entropy rate (local, well-posed); **R** =
+persistence/correlation time (a property of local dynamics, emergently long-range);
+**K** = description/compression length (global, non-additive → measure-overlap
+collapse); **D** = computational depth (Bennett's logical depth: irreducible
+sequential generation cost — genuinely global, generative, non-localizable; the one
+the simulation intuition points to). The local, well-posed machinery captures S and
+EPI (no new mechanism); **D is the distinctive, hard, global half.**
 | `toy/README.md` | How to run + expected output |
 | `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
 
@@ -257,3 +267,14 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
    TUR for the chiral (S-odd) case: the chiral current is a T-odd output, so its
    dissipation cost and the "magnetic-field" accounting (the handedness as a
    thermodynamic variable) is the natural next analysis.
+4. **`depth3`: attack computational depth (D) directly** (the active thread from the
+   round-2 review). The strict question: *can two processes have MATCHED ordinary
+   statistics but radically different irreducible sequential generation cost?* Build
+   it via D_G(H|B) = min_C depth(C) (generate H from boundary B using the
+   universe's local gates G — "the universe supplies the instruction set"), so
+   random noise and crystals are shallow while a compactly-specified long causal
+   unfolding is deep. Then implement D with the **true** Doob h-transform (tilted
+   operator + dominant-eigenvector factor r_ε(y)/r_ε(x)) / cloning population
+   dynamics — not naive reweighting — and compute its (J, I, Sdot) signature + the
+   amplification experiment (branch probability vs the *future* depth of
+   continuations).
