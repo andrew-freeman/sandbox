@@ -15,7 +15,8 @@
 | `toy/dual_field_toy_ratchet.py` | driven 3-state ratchet — a **control/negative result**: symmetric drive → J=0 for all ε (information coupling does *not* rectify a symmetric drive); I_avg still rises (numpy only) |
 | `toy/dual_field_toy_chiral.py` | open problem (d) — a **direction-dependent (S-odd) `I`** (chiral predictive information) that *does* break the symmetry and drives a current (J≈0.16·ε); the direction comes from the handedness in `I` (numpy only) |
 | `toy/dual_field_toy_depth.py` | reweighting global vs local (corrected) — the ESS/measure-overlap collapse for global compressed length (any *extensive* observable, additive or not; ε_crit~1/√L) vs LOCAL additive functionals that localize (raw **surprisal** P^(1−ε), ε=1→fair coin, and **EPI**), kept as two distinct rules (numpy only) |
-| `toy/dual_field_toy_depth2.py` | step 1 (corrected) — separates **surprisal (S) ≠ persistence (R) ≠ short-range memory (EPI)**; the long ξ of an order-1 chain is *persistence* (a local-dynamics property), **not** computational depth → the distinctive candidate (depth D) is genuinely global (numpy only) |
+| `toy/dual_field_toy_depth2.py` | step 1 (corrected) — separates **surprisal (S) ≠ persistence (R) ≠ short-range memory (EPI)**; the long ξ of an order-1 chain is *persistence* (a local-dynamics property), **not** computational depth (numpy only) |
+| `toy/dual_field_toy_depth3.py` | step 2 — **irreducible** computational depth is a *function of P_phys*: the attempt to build "matched statistics, different irreducible cost" **fails** (ξ is a deterministic fn of the dynamic; only *cancelling* computation changes the total, not irreducible, size) → "I = irreducible depth" is **not** a new degree of freedom (numpy only) |
 | `claude.md`, `openai.md` | round 1 — two external AI answers to "what is I?" (the simulation/computational-difficulty idea) |
 | `review-round2-claude.md`, `review-round2-openai.md` | round 2 — external review of the two depth scripts; caught the surprisal-vs-EPI mismatch (both, independently) and the persistence-vs-depth overreach |
 
@@ -267,14 +268,19 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
    TUR for the chiral (S-odd) case: the chiral current is a T-odd output, so its
    dissipation cost and the "magnetic-field" accounting (the handedness as a
    thermodynamic variable) is the natural next analysis.
-4. **`depth3`: attack computational depth (D) directly** (the active thread from the
-   round-2 review). The strict question: *can two processes have MATCHED ordinary
-   statistics but radically different irreducible sequential generation cost?* Build
-   it via D_G(H|B) = min_C depth(C) (generate H from boundary B using the
-   universe's local gates G — "the universe supplies the instruction set"), so
-   random noise and crystals are shallow while a compactly-specified long causal
-   unfolding is deep. Then implement D with the **true** Doob h-transform (tilted
+4. **`depth3` (DONE, 2026-08-25): the "I = depth" functional is not a clean new
+   degree of freedom.** The strict question (can two processes have MATCHED ordinary
+   statistics but radically different *irreducible* generation cost?) has a **no**:
+   the *irreducible* (shortcut-free) cost is a function of P_phys (the dynamic), so
+   matched statistics ⇒ matched irreducible cost — the counterexample attempt fails
+   (`dual_field_toy_depth3.py`). Only *cancelling* (output-invisible) computation
+   changes the *total* (non-irreducible) size, not the irreducible cost. The
+   per-history form "I[H] = logical depth(H)" is a valid per-history functional but
+   is GLOBAL (variance catastrophe) and UNCOMPUTABLE in general; its average over
+   P_phys is still fixed by P_phys. **Consequence:** don't pursue "I = depth" as a
+   *general* functional. The distinctive, TESTABLE version is the **amplification
+   experiment** (branch probability vs the *future* depth of continuations) — a
+   specific global effect, to be built with the **true** Doob h-transform (tilted
    operator + dominant-eigenvector factor r_ε(y)/r_ε(x)) / cloning population
-   dynamics — not naive reweighting — and compute its (J, I, Sdot) signature + the
-   amplification experiment (branch probability vs the *future* depth of
-   continuations).
+   dynamics, computing its (J, I, Sdot) signature. That is the depth thread worth
+   continuing.
