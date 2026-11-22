@@ -42,7 +42,8 @@ modification can be renamed into P'_phys.)
 | `toy/README.md` | How to run + expected output |
 | `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
 | `psychedelic-ab-fork-note.md` | A/B fork diagnostic (2026-11-21) — psychedelic phenomenology (LSD 5-HT2A entorhinal disconnection; ketamine NMDA dissociation) holds the substrate ~fixed and retunes the generative model → experience tracks the description layer (B); **under the stated experience assumption the fork leans D_min (B)**; 2-layer toy design + pre-registered predictions + results |
-| `toy/dual_field_toy_2layer.py` | 2-layer substrate/experience toy — ONE fixed 1st-order-chain trajectory (layer A, D_causal=N) + BSC gate γ (layer B, entorhinal-disconnection formalization); all pre-registered closed forms verified (I=1−h(γ), ρ_Y=ρ_X(1−2γ)², H_rate=…); A invariant / B freely parameterized → the experience is a B-object (numpy only) |
+| `toy/dual_field_toy_2layer.py` | 2-layer substrate/experience toy — ONE fixed 1st-order-chain trajectory (layer A, D_causal=N) + bit-flip gate γ (layer B, entorhinal-disconnection formalization); all pre-registered closed forms verified (I=1−h(γ), ρ_Y(k)=ρ_X^k(1−2γ)², H_1=h((1+ρ_X(1−2γ)²)/2)) + H_∞ (Bayes filter) + corrected 1/e persistence; A invariant / B freely parameterized → the experience is a B-object (numpy only; round-4 corrected) |
+| `toy/dual_field_quantum_nosignal.py` | **two-qubit no-signaling check (§3f, 2026-11-21)** — P' ∝ P·exp(εF) on |Φ⁺⟩, Alice basis X vs Z, Bob fixed Z; the reweighting of the full joint branches leaks Alice's basis choice into Bob's marginal for Alice-local (Δ~ε/4) and joint/future F (Δ~ε/8); the Bob-local F survives to all orders (factorization); closed forms verified to 8×10⁻¹⁷ (exact linear algebra, numpy only) |
 | `ab-fork-one-pager.md` | **"One substrate, many representations" — the self-contained, forwardable artifact (2026-11-21, round-4 corrected):** no backstory required; the A/B fork, the 2-layer closed-form demonstration (13/13 PASS, corrected H_1/H_∞ + persistence metrics), the three findings, the psychedelic hook, the honest limits, and room positioning (reach room = this page; physics room = opener + the ε-program numbers) |
 
 ---
@@ -238,6 +239,46 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
 - **3-state:** 0.48 (N=2×10³), 0.24 (2×10⁴), 0.09 (2×10⁵), 0.02 (2×10⁶).
 - So a small coupling **ε≈0.05 needs a ~10⁵–10⁶-step trajectory**.
 
+### 3f. Two-qubit no-signaling check — the first wall from existing physics (2026-11-21)
+
+`toy/dual_field_quantum_nosignal.py` (exact linear algebra; numpy; a two-qubit
+state is a length-4 complex vector — no quantum hardware). The round-4 review's
+program-level test, run the same day: take the reweighting `P' ∝ P·exp(εF)` and
+put it on an entangled pair — **|Φ⁺⟩ = (|00⟩+|11⟩)/√2, Alice chooses her
+measurement basis (Z or X), Bob always measures Z, never communicates**. The
+branch is the full joint outcome (a,i,b); the reweighting acts on branch
+probabilities with per-setup normalization; the test is
+`Δ_B = TV(P'_B(·|X), P'_B(·|Z))` — Alice's basis choice leaking into Bob's
+marginal would be a signaling channel.
+
+**Pre-registered analytic predictions (derived before running; the toy
+reproduces them to 8×10⁻¹⁷ — exact arithmetic):** baseline `ρ_B = I/2` exact,
+`Δ_B(ε=0) = 0` for every F; then, for the three F classes of the round-4 spec:
+
+| F class | Δ_B(ε) (closed form) | first order | verdict |
+|---|---|---|---|
+| 1. Alice-local (references the upstream branch) | ½·tanh(\|ε\|/2) | ε/4 | **LEAKS** |
+| 2. Bob-local (F = b, Bob's own outcome) | 0, all orders (factorization: e^{εf(b)} pulls out of the sum over i) | — | **SURVIVES** |
+| 3. Joint/future (F = i′·b, upstream × downstream) | (e^{\|ε\|}−1)/((3+e^{\|ε\|})(1+e^{\|ε\|})) | ε/8 | **LEAKS** |
+
+**Reading — a dichotomy, which is the no-go.** (a) If ε is to be *observable*
+in an entangled scenario, the reweighting must act on the measured branches
+(this toy); then any F that references the upstream (Alice) branch or the joint
+structure converts entanglement into an O(ε) signaling channel — the only F
+that survives to all orders in this scenario is Bob-local, a tilt of Bob's own
+statistics that signals to nobody. (b) If the reweighting acts instead on the
+measurement-free physical-history ensemble, no-signaling is trivially intact —
+but ε is then observationally invisible in the scenario. Either way: **no
+middle path** in this scenario between "observable ε" and "no signaling" for a
+downstream-informational F. The first-order general condition is recorded in
+the toy's docstring: ONE linear constraint on the 8 components of F — so the
+to-first-order surviving family is large, and the **follow-up** is to
+characterize the all-orders family (conjectured: the Bob-local sub-family) and
+generalize the scenario (other states, bases, dimensions). The O(ε) marginal
+shift is exactly the signature a later no-signaling/Bell-type hardware test
+would look for — the hierarchy stands: first linear algebra (done), then
+simulation, then maybe quantum experiment.
+
 ## 4. Bottom line — what the hypothesis now owes
 
 1. **Novelty: confirmed.** No fatal equivalent construction in the literature; the
@@ -326,14 +367,15 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
    dynamics, computing its (J, I, Sdot) signature. That is the depth thread worth
    continuing.
 6. **Two-qubit no-signaling check (round-4 program-level priority, 2026-11-21,
-   proposed in the external review, Claude).** Take P_i' ∝ P_i·exp(εF_i), define
-   F by downstream consequences, put it on an entangled two-qubit system, and
-   test whether the reweighting LEAKS SIGNAL across a causal cut (no-signaling
-   between parties that cannot communicate). If it leaks for every F of that
-   shape → a **no-go result for the whole class** (fits the seed's "success even
-   if ε = 0"); if some F survives → the first sign the idea is more than a
-   template. Bounded, cheap, and it targets the question most likely to KILL the
-   hypothesis — so it runs BEFORE any more classical toys (every toy so far is
-   classical and cannot touch that question). The claim-status table in
+   proposed in the external review, Claude) — DONE 2026-11-21, result in §3f.**
+   The reweighting on |Φ⁺⟩: Alice-local and joint/future F's LEAK (Δ_B ~ ε/4,
+   ε/8 — O(ε) signaling through the entanglement); the Bob-local F SURVIVES to
+   all orders (factorization). The dichotomy: observable ε in an entangled
+   scenario + downstream-informational F ⇒ signaling, unless the reweighting
+   acts on the measurement-free history ensemble — in which case ε is
+   observationally invisible there. FOLLOW-UP (the "ask why"): characterize the
+   all-orders no-leak family (first order = one linear constraint on the 8
+   components of F; conjecture: Bob-local) and generalize the scenario (other
+   states/bases/dimensions). The claim-status table in
    `psychedelic-ab-fork-note.md` §9 (verified / artifact / tautology /
    interpretation / prediction) is the standing ledger for the program.

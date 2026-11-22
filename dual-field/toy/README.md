@@ -1,6 +1,6 @@
 # Dual-Field toy models — how to run
 
-Both scripts are self-contained and need only **numpy** (no matplotlib; plots are
+All scripts are self-contained and need only **numpy** (no matplotlib; plots are
 ASCII).
 
 ```bash
@@ -9,6 +9,7 @@ python3 dual_field_toy_3state.py    # 3-state motor   (~60 s, the N=1e6 power ru
 python3 dual_field_toy_ratchet.py   # driven ratchet  (~60 s) — symmetric drive: a control/negative result (J=0)
 python3 dual_field_toy_chiral.py    # open problem (d) (~60 s) — a chiral (S-odd) I that DOES break the symmetry (J≈0.16·ε)
 python3 dual_field_toy_2layer.py    # 2-layer substrate/experience (<5 s) — A fixed, B variable (the D_causal/D_min fork illustration)
+python3 dual_field_quantum_nosignal.py  # two-qubit no-signaling (<5 s, exact linear algebra) — does P'~P exp(eps F) leak across entanglement?
 ```
 
 ## What each computes
@@ -44,6 +45,18 @@ asserted), and the corrected 1/e persistence scale (49.5 → 27.4 at γ=0.1;
 ABSENT for γ∈(0.19,0.81)); known-limit asserts: γ=0→Y≡H, γ=1→Y≡1−H, and the
 (1−2γ)² amplitude flatness at lags 1–40. Shows A invariant / B freely
 parameterized. Review record: `../psychedelic-ab-fork-note.md` §9.
+
+`dual_field_quantum_nosignal.py` is the round-4 program-level test (README §3f):
+the reweighting `P' ∝ P·exp(εF)` placed on the maximally-entangled state
+|Φ⁺⟩=(|00⟩+|11⟩)/√2. Alice chooses her measurement basis (Z or X), Bob always
+measures Z and never communicates; the branch is the full joint outcome
+(a,i,b) and the reweighting acts on the branch probabilities (per-setup
+normalization). The test is `Δ_B = TV(P'_B(·|X), P'_B(·|Z))` — a nonzero value
+means Alice's basis choice leaked into Bob's marginal (signaling). Three F
+classes are tested (Alice-local, Bob-local, joint/future). It is exact linear
+algebra (projectors, partial traces, reweighting, marginalization) — no Monte
+Carlo, no quantum hardware — and verifies the pre-registered closed forms to
+8×10⁻¹⁷.
 
 ## Headline numbers (reference output)
 
@@ -82,6 +95,18 @@ parameterized. Review record: `../psychedelic-ab-fork-note.md` §9.
   "alienness" is the fourth quantity). At γ=0.5 the experience is maximally
   incompressible yet structurally white noise — the S/D fork maximized at the
   experience layer.
+- **two-qubit no-signaling (the first wall from existing physics, 2026-11-21):**
+  on |Φ⁺⟩, reweighting the full joint branches by `exp(εF)` and marginalizing
+  over Alice: **Alice-local F leaks** `Δ_B = ½·tanh(|ε|/2) ~ ε/4`, **joint/future
+  F leaks** `Δ_B = (e^|ε|−1)/((3+e^|ε|)(1+e^|ε|)) ~ ε/8`, **Bob-local F survives
+  to all orders** (`Δ_B = 0`; `e^{εf(b)}` factors out of the sum over i). Closed
+  forms verified to 8×10⁻¹⁷. The dichotomy (README §3f): for ε to be observable
+  in an entangled scenario the reweighting must act on the measured branches —
+  then any upstream/joint-referencing F turns entanglement into an O(ε)
+  signaling channel; acting on the measurement-free history ensemble keeps
+  no-signaling intact but makes ε observationally invisible there. Follow-up:
+  characterize the all-orders no-leak family (conjectured: Bob-local) and
+  generalize the scenario.
 
 Tweak the baseline physics at the top of each file (the `P1` table for the 2-state;
 `BASE_CW / BASE_CCW / BASE_STAY / INERTIA` for the 3-state) to explore other
