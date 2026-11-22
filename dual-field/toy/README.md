@@ -13,6 +13,7 @@ python3 dual_field_quantum_nosignal.py  # two-qubit no-signaling v1 (<5 s, exact
 python3 dual_field_quantum_nosignal2.py # no-signaling v2 / round-5 (<5 s) — the full 2x2 square, the safe-family proposition, the scoped no-go theorem, the CPTP positive control
 python3 dual_field_quantum_nosignal3.py # no-signaling v3 / the GENERAL no-go, round 6 (<5 s) — all states + full Bloch sphere; no-signaling for every state => F outcome-independent (P' = P); the |Phi+>-alone subtlety
 python3 dual_field_quantum_auxiliary.py  # the P⊗I auxiliary model, round 6 commit #2 (<5 s) — "Dual Field taken literally": an actual 2nd sector 𝓘 coupled to A,B by a joint unitary; no-signaling (A) + observable back-action D_B=|c|sin²ε (B) + the local-vs-joint informational signature (C)
+python3 dual_field_quantum_auxiliary2.py # the HONEST A<->I<->B auxiliary model, round 7 commit #3 (<5 s) — the review killed §3h's INTERPRETATION (spectator 𝓘, tautological no-signaling, locally-visible c), not its numerics; A<->I<->B with NO direct A-B term, 𝓘 genuinely participates; the response depends on JOINT info with all local observables fixed: D_AB=(theta/2)|1-cos 4eps|
 ```
 
 ## What each computes
@@ -123,6 +124,39 @@ ordinary local environmental noise lacks. The open question it sharpens: is
 coupling 𝓘 to the JOINT observable (Z_A Z_B vs Z_A) what lets the back-action
 reach the remote party?
 
+`dual_field_quantum_auxiliary2.py` is the round-7 commit #3 (README §3i,
+2026-11-22). The round-7 review (`~/feedback_quantum_aux`) ran §3h's toy and
+confirmed every closed form, but found the *interpretation* fails in three
+load-bearing ways, each re-verified to ~10⁻¹⁶ in PART A of this file:
+**(1)** 𝓘 was a **spectator eigenstate** — with `H_INFO = Z_A Z_B Z_𝓘` and 𝓘 in
+|0⟩ (a +1 eigenstate of Z_𝓘), Z_𝓘|0⟩=|0⟩, so the auxiliary never leaves |0⟩ and
+the model reduces to the *direct* two-qubit interaction e^{−iε Z_A Z_B};
+**(2)** the no-signaling test was a **completeness tautology** — global CPTP ≠
+no-signaling (SWAP/CNOT are unitary+CPTP and signal), and §3h's Δ_B (summed over
+Alice's complete basis) is 0 for *any* state; the correct encode-then-read test
+gives D = |sin 2ε|; **(3)** c was **locally visible** — ρ_A = ρ_B = ½(I + c X),
+so ⟨X_A⟩ = ⟨X_B⟩ = c. The honest model the review specified: 𝓘 coupled via
+**`H_int = (Z_A + Z_B) X_𝓘`** (A↔𝓘↔B, **no direct A-B term**; [X_𝓘,|0⟩⟨0|]≠0 so
+𝓘 genuinely participates), on the |00⟩-|11⟩ coherent family
+`ρ_θ = ½(|00⟩⟨00|+|11⟩⟨11|) + (θ/2)(|00⟩⟨11|+|11⟩⟨00|)` — every member has
+ρ_A = ρ_B = I/2 (all six local observables 0), so only the *joint* |00⟩-|11⟩
+coherence θ varies. Exact linear algebra (eig-based unitary, partial traces,
+trace distance) — numpy only. Three pre-registered parts, all hard-asserted to
+machine precision (exit 0): **(Q1) 𝓘 participates** —
+`ρ_𝓘^final = diag(cos²2ε, sin²2ε)` (exact, θ-independent; to 2×10⁻¹⁶) and
+`S(ρ_𝓘) = h(cos²2ε) > 0` (to 6×10⁻¹⁶) — the fix for the spectator bug;
+**(Q2) the 𝓘-mediated A→B channel** — the reduced AB map (trace out 𝓘) is CPTP
+(to 4×10⁻¹⁶ → no automatic FTL), the *joint* |00⟩⟨11| coherence is dephased by
+**cos 4ε** (`|00⟩⟨11|_final = (θ/2)cos 4ε`, to 2×10⁻¹⁶; the causal timescale is
+ε), and Bob's *local* state is invariant (ρ_B = I/2 for all θ,ε, to 2×10⁻¹⁶ → no
+LOCAL A→B signal, consistent with no direct A-B term); **(Q3) the response
+distinguishes JOINT information with all local observables held fixed** —
+**`D_AB(θ, ε) = (θ/2)·|1 − cos 4ε|`** (to 3×10⁻¹⁶): θ = 0 (the classical mixture)
+and θ = 1 (|Φ⁺⟩) share identical marginals but differ in back-action (0 vs
+≈0.971 at ε = 0.7) — the corrected informational signature, provably joint-only.
+Open: is dephasing-in-a-joint-observable the *generic* auxiliary back-action, or
+specific to the Z-structure coupling?
+
 ## Headline numbers (reference output)
 
 - **2-state:** `δ(ε) = P_ε(x=1)−P_0(x=1) ≈ −0.035·ε`; `I_avg` rises monotonically
@@ -232,6 +266,32 @@ reach the remote party?
   one concrete construction. Open: is the joint-observable coupling (Z_A Z_B
   vs Z_A) the structural property that lets the back-action reach the remote
   party, or does a generic H_int do it?
+- **the HONEST A↔𝓘↔B auxiliary model (round 7 commit #3 — the review killed
+  §3h's *interpretation*, not its numerics, README §3i, 2026-11-22):** the
+  round-7 review confirmed §3h's closed forms but found (1) 𝓘 was a **spectator
+  eigenstate** (Z_𝓘|0⟩=|0⟩ → reduced to the DIRECT Z_A Z_B interaction),
+  (2) the no-signaling test was a **completeness tautology** (global CPTP ≠
+  no-signaling; the correct encode-then-read test gives D = |sin 2ε|), (3) c was
+  **locally visible** (ρ_A = ρ_B = ½(I+cX), so ⟨X_A⟩ = ⟨X_B⟩ = c) — all three
+  re-verified to ~10⁻¹⁶ in PART A. The honest model: 𝓘 coupled via
+  **H_int = (Z_A+Z_B) X_𝓘** (A↔𝓘↔B, **no direct A-B term**; [X_𝓘,|0⟩⟨0|]≠0 so
+  𝓘 genuinely participates), on the |00⟩-|11⟩ coherent family ρ_θ (all marginals
+  = I/2 → all local observables fixed; θ = the joint |00⟩-|11⟩ coherence). Three
+  pre-registered parts, machine precision (exit 0): **(Q1) 𝓘 participates** —
+  `ρ_𝓘^final = diag(cos²2ε, sin²2ε)` (θ-independent, 2×10⁻¹⁶), `S(ρ_𝓘) =
+  h(cos²2ε) > 0` (6×10⁻¹⁶); **(Q2) the 𝓘-mediated A→B channel** — CPTP
+  (4×10⁻¹⁶, no auto-FTL), the joint |00⟩⟨11| coherence dephased by **cos 4ε**
+  (the causal timescale is ε; 2×10⁻¹⁶), Bob's local state invariant
+  (ρ_B = I/2 for all θ,ε; 2×10⁻¹⁶ → no LOCAL A→B signal); **(Q3) the response
+  distinguishes JOINT info with all local observables fixed** —
+  **`D_AB(θ,ε) = (θ/2)·|1 − cos 4ε|`** (3×10⁻¹⁶): θ = 0 (classical mixture) and
+  θ = 1 (|Φ⁺⟩) share identical marginals but differ in back-action (0 vs
+  ≈0.971 at ε = 0.7). *First construction where the informational sector's
+  back-action on the physical system is a provable function of JOINT information
+  with the local marginals held fixed* — the exact property the round-7 review
+  demanded and §3h faked with a locally-visible c. Open: is dephasing-in-a-joint-
+  observable the GENERIC auxiliary back-action, or specific to the Z-structure
+  coupling?
 
 Tweak the baseline physics at the top of each file (the `P1` table for the 2-state;
 `BASE_CW / BASE_CCW / BASE_STAY / INERTIA` for the 3-state) to explore other

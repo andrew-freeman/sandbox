@@ -48,6 +48,7 @@ modification can be renamed into P'_phys.)
 | `toy/dual_field_quantum_nosignal3.py` | **no-signaling v3 / the GENERAL no-go (§3f, 2026-11-22, round 6)** — extends v2 from the scoped XZ-plane/correlated-family theorem to the full 2×2 statement: ALL states + ALL local projective 2-outcome settings (full Bloch sphere). Establishes that no-signaling for every state ⟹ F is outcome-independent (P′ = P). The key new subtlety: \|Φ⁺⟩ ALONE is NOT sufficient — the joint outcome term e^{εkab} is exactly no-signaling-safe for \|Φ⁺⟩ but leaks for \|ψ_θ⟩ (θ≠π/4) with closed form \|cos2θ\|·tanh(εk) (verified to 10⁻¹⁶); \|Φ⁺⟩ kills the a/b local terms, the correlated family θ≠π/4 kills the a·b term. Closed forms hand-derived, hard-asserted; numpy only |
 | `ab-fork-one-pager.md` | **"One substrate, many representations" — the self-contained, forwardable artifact (2026-11-21, round-4 corrected):** no backstory required; the A/B fork, the 2-layer closed-form demonstration (13/13 PASS, corrected H_1/H_∞ + persistence metrics), the three findings, the psychedelic hook, the honest limits, and room positioning (reach room = this page; physics room = opener + the ε-program numbers) |
 | `toy/dual_field_quantum_auxiliary.py` | **the P⊗I auxiliary model (§3h, 2026-11-22, the review's commit #2 — "take Dual Field literally")** — an ACTUAL second dynamical sector 𝓘 coupled to the physical qubits A,B by a joint unitary U = e^{−iε H_int} (free H_AB=0; 𝓘 starts in |0⟩): a LOCAL coupling GEN = Z_A I_B Z_I vs a JOINT coupling INFO = Z_A Z_B Z_I, on the correlated A-B family ρ_c = ¼(I+XX) + (c/4)(IX+XI) (c∈[−1,1]). Three parts, all pre-registered and hard-asserted to machine precision (numpy only, exit 0): **(A) no-signaling holds** (a joint unitary is CPTP → Bob's marginal is independent of Alice's setting, Δ_B ≤ 1.1×10⁻¹⁶ for GEN, INFO, and a generic random coupling — no automatic FTL, unlike the killed reweighting); **(B) observable, reproducible back-action** with the EXACT closed form **D_B(INFO, c, ε) = |c|·sin²ε** (Bob's Bloch vector stays on the x-axis, x-component = c·cos 2ε; D_AB = O(ε); the back-action is a 2nd-order "virtual" process because [Z_𝓘,|0⟩⟨0|]=0 kills the first order); **(C) the informational (nonlocal) signature**: a LOCAL coupling leaves the remote party EXACTLY invariant (D_B = 0 for all c,ε), while the JOINT coupling reaches the remote party in a way a local one cannot (D_B = |c|sin²ε, even in c, zero at c=0) — the structural property ordinary local environmental noise lacks. Sharpens the open question: is coupling 𝓘 to the JOINT observable (Z_A Z_B vs Z_A) what lets the back-action reach the remote party? |
+| `toy/dual_field_quantum_auxiliary2.py` | **the HONEST A↔𝓘↔B auxiliary model (§3i, 2026-11-22, the review's commit #3 — round 7 killed §3h's *interpretation*, not its numerics)** — the round-7 review (`~/feedback_quantum_aux`) ran §3h and confirmed every closed form, but found: (1) 𝓘 was a **spectator eigenstate** (Z_𝓘\|0⟩=\|0⟩ → the model reduced to the DIRECT Z_A Z_B interaction), (2) the no-signaling test was a **completeness tautology** (global CPTP ≠ no-signaling; the correct encode-then-read test gives D=\|sin 2ε\|), (3) c was **locally visible** (ρ_A=ρ_B=½(I+cX), so ⟨X_A⟩=⟨X_B⟩=c). PART A re-verifies all three to ~10⁻¹⁶. The honest model: 𝓘 coupled via **H_int = (Z_A+Z_B) X_𝓘** (A↔𝓘↔B, **no direct A-B term**; [X_𝓘,\|0⟩⟨0\|]≠0 so 𝓘 genuinely participates), on the \|00⟩-\\|11⟩ coherent family ρ_θ (all marginals = I/2 → all local observables fixed; θ = the joint \|00⟩-\\|11⟩ coherence). Three pre-registered, machine-precision parts (numpy only, exit 0): **(Q1) 𝓘 participates** — ρ_𝓘^final = diag(cos²2ε, sin²2ε) (θ-independent), S(ρ_𝓘)=h(cos²2ε)>0; **(Q2) the 𝓘-mediated A→B channel** — CPTP (no auto-FTL), the joint \|00⟩⟨11\| coherence dephased by **cos 4ε** (the causal timescale), Bob's local state invariant (no LOCAL A→B signal); **(Q3) the response distinguishes JOINT info with all local observables fixed** — **D_AB(θ,ε) = (θ/2)\|1−cos 4ε\|**, so θ=0 and θ=1 (|Φ⁺⟩) share identical marginals but differ in back-action (0 vs ≈0.971). Sharpens the open question: is dephasing-in-a-joint-observable the GENERIC auxiliary back-action, or specific to the Z-structure coupling? |
 
 ---
 
@@ -554,6 +555,96 @@ of the physical system — a genuine "second field" with no single-particle home
 (Also open: can the back-action be made *informational* in the stronger sense —
 dependent on the mutual information / causal organization of A-B — rather than on
 a fixed joint-observable amplitude c?)
+
+### 3i. Round 7 — the auxiliary model's *interpretation* fails in three ways; the honest A↔I↔B model (2026-11-22, the review's commit #3)
+
+The round-7 review (`~/feedback_quantum_aux`) ran the §3h toy and confirmed every
+asserted closed form passes to machine precision, but found the **interpretation**
+fails in three load-bearing ways. Each was independently re-verified to ~10⁻¹⁶
+(PART A of `dual_field_quantum_auxiliary2.py`):
+
+1. **𝓘 was a spectator eigenstate.** With `H_INFO = Z_A Z_B Z_𝓘` and 𝓘
+   initialized to \|0⟩ (a +1 eigenstate of Z_𝓘), Z_𝓘\|0⟩ = \|0⟩, so
+   e^{−iε Z_A Z_B Z_𝓘}(\|ψ⟩_AB ⊗ \|0⟩) = (e^{−iε Z_A Z_B}\|ψ⟩_AB) ⊗ \|0⟩. The
+   auxiliary qubit **never leaves \|0⟩** (ρ_𝓘(ε) = \|0⟩⟨0\| for all c,ε) and the
+   model quietly reduces to the **direct** two-qubit interaction
+   U_AB = e^{−iε Z_A Z_B}. "Coupling 𝓘 to a joint observable" was, in fact, "a
+   direct A-B interaction with a passive spectator."
+2. **The no-signaling test was a tautology.** Global CPTP ≠ no-signaling (a SWAP or
+   CNOT is unitary + CPTP and transmits information). §3h's Δ_B (Bob's P(b=0) under
+   Alice's X- vs Z-basis, *summed over Alice outcomes*) is 0 for **any** state ρ′,
+   because ∑_a P_a^(x) = I_A for any complete basis: it tests measurement
+   **completeness**, not no-signaling (verified 0 on 40 random states). The *correct*
+   test — Alice encodes *before* the interaction, Bob reads *after* — gives
+   **D = \|sin 2ε\|** for the reduced Z_A Z_B, i.e. Alice **can** signal. §3h's Part A
+   was blind to it.
+3. **c was locally visible, not joint-only.** §3h's ρ_c = ¼(I + X_A X_B) +
+   (c/4)(I_A X_B + X_A I_B) has partial traces ρ_A = ρ_B = ½(I + c X), so
+   ⟨X_A⟩ = ⟨X_B⟩ = c. c is directly measurable from **either** local qubit; D_B =
+   |c|sin²ε was proportional to Bob's **local** initial X-polarization, not to an
+   inaccessible joint coherence.
+
+**Verdict:** the numerics were right, the interpretation was wrong, and the
+auxiliary-**sector** strategy itself is still alive. The review specified the clean
+next model: **A ↔ 𝓘 ↔ B, no direct A-B term; 𝓘 genuinely changing state; initial
+A-B states with identical local marginals but different joint structure** — and asked
+to test three things separately. That is `dual_field_quantum_auxiliary2.py`:
+
+- **Model.** 𝓘 coupled via `H_int = (Z_A + Z_B) X_𝓘 = Z_A X_𝓘 + Z_B X_𝓘` — a
+  sum of an A-𝓘 term and a B-𝓘 term only, **no A-B term**. Because 𝓘 is coupled
+  by **X_𝓘** (not Z_𝓘) and [X_𝓘,\|0⟩⟨0\|] ≠ 0, 𝓘 **genuinely participates**
+  (it evolves and entangles with AB) — the direct fix for bug #1. Initial A-B state:
+  the \|00⟩-\\|11⟩ coherent family ρ_θ = ½(\|00⟩⟨00\|+\|11⟩⟨11\|) +
+  (θ/2)(\|00⟩⟨11\|+\|11⟩⟨00\|), θ∈[0,1] (θ=1 → \|Φ⁺⟩). **Every member has
+  ρ_A = ρ_B = I/2** (all six local observables ⟨X⟩,⟨Y⟩,⟨Z⟩ on A and B are 0): the
+  only thing that varies with θ is the **joint** \|00⟩-\\|11⟩ coherence, invisible in
+  either local state. (Mechanically, U(ε) only acts on the (Z_A+Z_B)=±2 eigenspace
+  (|00⟩,|11⟩) and leaves the =0 eigenspace (|01⟩,|10⟩) untouched: it is an
+  environment that dephases AB in the (Z_A+Z_B) eigenbasis, which yields the exact
+  closed forms below.)
+
+The three questions, each with a pre-registered closed form hard-asserted to machine
+precision (numpy only, exit 0):
+
+- **(Q1) Does 𝓘 really participate?  YES.**
+  **ρ_𝓘^final = diag(cos²2ε, sin²2ε)** (exact and **θ-independent**);
+  **S(ρ_𝓘) = h(cos²2ε) > 0** for ε ≠ 0 (h = binary entropy). 𝓘 changes state and
+  entangles with AB (θ > 0). This is the fix for the spectator bug.
+- **(Q2) Can Alice signal through it, and at what causal timescale?** The reduced
+  A-B map (trace out 𝓘) is **CPTP** → a legitimate physical channel on AB → **no
+  automatic FTL** (the Simon-Buzek-Gisin fence in the *correct* form, not a
+  global-CPTP tautology). Its A→B action: the **joint** \|00⟩⟨11\| coherence is
+  **dephased by a factor cos(4ε)** (exact: \|00⟩⟨11\|_final = (θ/2)cos 4ε) — the
+  A→B imprint on the joint structure propagates through 𝓘 with amplitude cos 4ε,
+  controlled by ε = the causal timescale. And **Bob's local state is invariant**
+  (ρ_B^final = I/2 for all θ,ε): the 𝓘-mediated influence is *entirely in the joint
+  structure*, so there is **no LOCAL A→B signal** (consistent with the no direct A-B
+  term). Alice can imprint on the joint A-B state; the 𝓘-mediated channel then
+  dephases that imprint by cos 4ε.
+- **(Q3) Does its response distinguish JOINT information when all local observables
+  are held fixed?  YES.**
+  **D_AB(θ, ε) = (θ/2)·|1 − cos(4ε)|** (exact, to 3×10⁻¹⁶) — a nontrivial function
+  of the **joint** \|00⟩-\\|11⟩ coherence θ while every local observable is held
+  fixed (marginals = I/2). The crisp contrast: θ = 0 (the classical mixture
+  ½(\|00⟩⟨00\|+\|11⟩⟨11\|)) and θ = 1 (\|Φ⁺⟩) have **identical marginals** (both
+  I/2) but **D_AB(θ=0) = 0 vs D_AB(θ=1) = ½|1−cos 4ε| ≈ 0.971** (ε = 0.7). The
+  back-action on the physical system depends on **joint information** (θ) that is
+  invisible in any local observable — the corrected informational signature (v1 faked
+  it with a locally-visible c; here it is provably joint-only).
+
+**Honest limits + the open question this round sharpens.** The closed forms are exact
+*for this coupling* H_int = (Z_A+Z_B) X_𝓘 *and this initial-state family* (the
+\|00⟩-\\|11⟩ coherent subfamily); the 𝓘-mediated channel is a **dephasing** in the
+(Z_A+Z_B) eigenbasis (a specific CPTP map). The load-bearing open question (next
+step): **does a GENERIC A↔𝓘↔B coupling (adding X_A, X_B, Y terms, or a different
+mediator state) reproduce the "response depends on joint information with the
+marginals fixed" property, or is it specific to the Z-structure coupling?**
+Equivalently: is **dephasing in a joint observable the generic back-action** an
+auxiliary sector can have on the physical system, or can other CPTP structures
+(amplitude damping, etc.) arise from A↔𝓘↔B couplings? If only dephasing-in-a-joint-
+observable survives, that **locates the novelty** precisely: the informational sector
+acts on the physical system *only* through its correlational (joint) degrees of
+freedom — a genuine "second field" with no single-particle home.
 
 ## 4. Bottom line — what the hypothesis now owes
 
