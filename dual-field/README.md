@@ -45,6 +45,7 @@ modification can be renamed into P'_phys.)
 | `toy/dual_field_toy_2layer.py` | 2-layer substrate/experience toy — ONE fixed 1st-order-chain trajectory (layer A, D_causal=N) + bit-flip gate γ (layer B, entorhinal-disconnection formalization); all pre-registered closed forms verified (I=1−h(γ), ρ_Y(k)=ρ_X^k(1−2γ)², H_1=h((1+ρ_X(1−2γ)²)/2)) + H_∞ (Bayes filter) + corrected 1/e persistence; A invariant / B freely parameterized → the experience is a B-object (numpy only; round-4 corrected) |
 | `toy/dual_field_quantum_nosignal.py` | **two-qubit no-signaling check v1 (§3f, 2026-11-21)** — P' ∝ P·exp(εF) on |Φ⁺⟩, Alice basis X vs Z, Bob fixed Z; the reweighting of the full joint branches leaks Alice's basis choice into Bob's marginal for Alice-local (Δ~ε/4) and joint/future F (Δ~ε/8); the Bob-local F survives to all orders in the tested direction (factorization); closed forms verified to 8×10⁻¹⁷ (exact linear algebra, numpy only); two bugs found by the round-5 review are fixed in place and marked |
 | `toy/dual_field_quantum_nosignal2.py` | **no-signaling v2 / round-5 extension (§3f, 2026-11-22)** — the full 2×2 square (all 4 corners × 3 F classes × both directions, hand-derived closed forms to 8×10⁻¹⁷); the product-state safe-family proposition (w = s(a,x)·r(b,y), per-corner factorization leaks 40/40); the entangled-family no-go theorem (scoped: 2×2, XZ plane, |ψ_θ⟩ family — all-state no-signaling forces w = c(α,β), i.e. P′ = P); a CPTP positive control (observable local change + no signaling coexist); the to-first-order null space of the tested square (16 F-values, 4 constraints, nullity 12) |
+| `toy/dual_field_quantum_nosignal3.py` | **no-signaling v3 / the GENERAL no-go (§3f, 2026-11-22, round 6)** — extends v2 from the scoped XZ-plane/correlated-family theorem to the full 2×2 statement: ALL states + ALL local projective 2-outcome settings (full Bloch sphere). Establishes that no-signaling for every state ⟹ F is outcome-independent (P′ = P). The key new subtlety: \|Φ⁺⟩ ALONE is NOT sufficient — the joint outcome term e^{εkab} is exactly no-signaling-safe for \|Φ⁺⟩ but leaks for \|ψ_θ⟩ (θ≠π/4) with closed form \|cos2θ\|·tanh(εk) (verified to 10⁻¹⁶); \|Φ⁺⟩ kills the a/b local terms, the correlated family θ≠π/4 kills the a·b term. Closed forms hand-derived, hard-asserted; numpy only |
 | `ab-fork-one-pager.md` | **"One substrate, many representations" — the self-contained, forwardable artifact (2026-11-21, round-4 corrected):** no backstory required; the A/B fork, the 2-layer closed-form demonstration (13/13 PASS, corrected H_1/H_∞ + persistence metrics), the three findings, the psychedelic hook, the honest limits, and room positioning (reach room = this page; physics room = opener + the ε-program numbers) |
 
 ---
@@ -365,6 +366,107 @@ ALONE can and cannot establish. The O(ε) marginal shifts remain the signature a
 later no-signaling/Bell-type hardware test would look for — the hierarchy
 stands: first linear algebra (done, now scoped), then simulation, then maybe
 quantum experiment.
+
+### 3g. Round 6 — the "what's left" strategic review + the GENERAL no-go (2026-11-22)
+
+An external strategic review (ChatGPT; `~/feedback_dual_field_whats_left`) was
+received asking *"what mathematical forms could produce an informational
+residual without immediately contradicting ordinary physics?"* and proposing a
+branch ledger + the next three commits. It was verified accurately before
+integration. Three load-bearing external citations were checked and all three
+are accurate and on-point:
+
+1. **The "fence"** — Simon, Bužek, Gisin, *"No-signaling condition and quantum
+   dynamics,"* **PRL 87, 170405 (2001)** (arXiv:quant-ph/0102125; PubMed
+   11690257). Abstract, verbatim: no-signaling + (1) states = Hilbert rays +
+   (2) Born/trace rule ⟹ *dynamics = linear completely-positive maps on density
+   matrices.* This is exactly the fence the review invokes: the ensemble ρ must
+   evolve linearly/CP, which is what an explicit extra sector (below) satisfies
+   automatically and what a post-hoc branch reweighting generally does not.
+2. **The collapse "narrow corridor"** — *"Introduction to Dynamical Wave
+   Function Collapse: Realism in Quantum Physics, Vol. 1"* (Oxford, 2024),
+   **CSL Theory** chapter. Confirms stochastic-collapse models (nonlinear
+   stochastic single-trajectories + linear/CP ensemble master equation) as the
+   working example of "nonstandard microscopic dynamics that is NOT
+   automatically FTL."
+3. **The global-history branch** — Zhao, Tang, Zhang, *"Nonequilibrium
+   statistical mechanics revealed by Doob h-transform and variational
+   autoregressive networks,"* **PRE 111, 034120 (2025)**. Confirms tilted /
+   Doob-h-transformed trajectory ensembles as a current, active tool — so the
+   "could a history weighting be a fundamental law rather than a conditioned
+   ensemble, and what observable distinguishes them?" question is live, not
+   broken.
+
+**Branch ledger (review's table), cross-checked against our rounds 1–5:**
+
+| Branch | Review status | Our verification |
+|---|---|---|
+| Naive branch weighting P′∝P·e^{εF} | "severely wounded / probably dead QM" | **Now PROVEN dead (scoped 2×2):** §3g no-go below — the "what remains to test" is done |
+| Classical exponential trajectory weighting | "alive mathematically" | Accurate — a standard conditioned/tilted ensemble (Doob h-transform); the real question is fundamental-law-vs-conditioned |
+| Depth = correlation time | "dead" | Accurate — the long ξ is *persistence* (local dynamics), not depth (§3, A/B note) |
+| Depth as global F[H] | "alive, difficult" | Accurate — genuinely a whole-history quantity; the open work is defining it without representation cheating + sampling |
+| Information = surprisal | "alive as quantity, wrong as depth" | Accurate — S ≠ R ≠ short-range memory (EPI); a control, probably not the sought 𝓘 |
+| Chiral informational current | "valid toy behavior" | Accurate — the ε-program / ratchet demonstrates the symmetry structure, not fundamental evidence (§3c/d) |
+| Explicit 2nd informational DOF | "**very much alive**" | The central proposal — the P⊗I auxiliary model below; the CPTP positive control (§3f) is the first concrete step |
+| Quantum info coupling at ρ level | "alive under severe constraints" | Accurate — the SBG fence (linear/CP ensemble) is the constraint |
+| Life/AI/cosmology | "parked" | Accurate — the survival question has moved down to the microscopic core |
+
+**The GENERAL 2×2 no-signaling no-go (v3, `dual_field_quantum_nosignal3.py`)** —
+the review's "next cheap kill" ("finish murdering the old one properly"),
+completed and verified to machine precision. *Statement:* for 2×2 qubits, the
+branch reweighting P′(a,b|n,m) = P(a,b|n,m)·e^{εF(a,b,n,m)}/Z preserves
+no-signaling (both directions) for **every** state ρ and **every** local
+projective 2-outcome setting pair (n,m) [full Bloch sphere] **iff** F is
+independent of the outcomes (a,b) — in which case e^{εF} factors out and
+P′ = P. *Proof sketch:* (⟸) trivial (P′ = P). (⟹) the all-states hypothesis
+implies no-signaling on the correlated family |ψ_θ⟩ = cosθ|00⟩+sinθ|11⟩ for all
+θ; to first order in ε the constraint is linear in F, and decomposing F in the
+{1, a, b, ab} character basis on {±1}² with P(a,b|n,m) = ¼[1 + a·n·u + b·m·u +
+ab·n·T·m], u = (0,0,cos2θ), T = diag(sin2θ, −sin2θ, 1): the a-only and b-only
+components leak at θ = π/4 (|Φ⁺⟩) already (TV = ½·tanh(ε/2) for F1), and the ab
+(joint) component is safe at θ = π/4 but leaks for θ ≠ π/4. Every non-constant
+component is killed ⟹ F = f(n,m). *The key new subtlety (beyond round 5):*
+**|Φ⁺⟩ alone is NOT sufficient** — the joint outcome term e^{εkab} is *exactly*
+no-signaling-safe for |Φ⁺⟩ (both directions, all settings; v3 part C, Δ =
+5.6×10⁻¹⁷) but leaks for |ψ_θ⟩, θ≠π/4, with the hand-derived 2-point closed
+form **A→B TV = |cos 2θ|·tanh(εk)** (v3 part D, verified to 10⁻¹⁶ at θ =
+0.2/0.3/0.5/0.7/1.0; vanishes exactly at θ = π/4). e^{εkab} is also *not*
+rank-1 (det = 2 sinh 2εk ≠ 0), so it is not in the round-5 product-state safe
+family and leaks for some product states too (|0⟩⊗I/2: A→B = 3.8×10⁻¹). So the
+**all-entanglement** condition (the correlated family for every θ ⊂ "every
+state") is what kills the joint term; |Φ⁺⟩ alone kills only the local terms.
+*Scope:* 2×2, projective 2-outcome settings (full sphere), all states. *Open:*
+higher dimensions, POVMs. *Conclusion (clean project result, as the review
+wants):* **universal branchwise exponential reweighting is incompatible with
+no-signaling except in the trivial (outcome-independent) case — so we stop
+writing toys around the reweighting mechanism.**
+
+**The surviving route the review pushes: take "Dual Field" literally.**
+Instead of rescaling probabilities *after* QM generates branches (P → P·e^{εF},
+which the no-go kills), introduce an **actual additional dynamical subsystem**
+𝓘 with H_total = H_P + H_𝓘 + ε·H_int, joint state ρ_{P𝓘} evolving under a
+legitimate quantum map ℰ, and observe only ρ_P = Tr_𝓘 ρ_{P𝓘}. Advantages:
+(1) QM already handles inaccessible degrees of freedom (decoherence, memory,
+non-Markovian dynamics); (2) if the joint evolution is unitary/CPTP, the reduced
+ρ_P dynamics is automatically linear/CP (the SBG fence) — so no automatic FTL;
+(3) "second field" gains operational meaning. **Proposed concrete next toy
+(not yet built — the review's commit #2):** `dual_field_quantum_auxiliary.py` —
+two physical qubits A, B (start entangled) + one informational qubit 𝓘; weak
+interaction U = e^{−i t(H_AB + ε H_{A𝓘/B𝓘})}; the question: *can 𝓘 alter locally
+observable statistics in a reproducible way while Alice's measurement choices
+still cannot signal to Bob?* If every interesting H_int just looks like an
+ordinary hidden environment, that is a useful failure (Dual Field → ordinary
+extra field); if 𝓘 must carry a structural property ordinary environmental
+noise lacks (memory across histories, coupling to causal organization), that
+locates the real novelty. **Review's commit #3:** a `STATUS.md` ruthless ledger
+(survives / artifact / tautology / killed / open) — the archaeology made
+visible. The review's framing, which we agree with: after all the destruction,
+the hypothesis is closer to its *original* name — **two actual coupled dynamical
+sectors**, not "ordinary physics + an informational scoring function." The
+survival question has moved down to: *can an informational degree of freedom
+couple to quantum matter nontrivially, observably, and without violating
+no-signaling?* If no, nearly everything upstream dies; if yes (even in one
+construction), the project changes character.
 
 ## 4. Bottom line — what the hypothesis now owes
 

@@ -11,6 +11,7 @@ python3 dual_field_toy_chiral.py    # open problem (d) (~60 s) — a chiral (S-o
 python3 dual_field_toy_2layer.py    # 2-layer substrate/experience (<5 s) — A fixed, B variable (the D_causal/D_min fork illustration)
 python3 dual_field_quantum_nosignal.py  # two-qubit no-signaling v1 (<5 s, exact linear algebra) — does P'~P exp(eps F) leak across entanglement?
 python3 dual_field_quantum_nosignal2.py # no-signaling v2 / round-5 (<5 s) — the full 2x2 square, the safe-family proposition, the scoped no-go theorem, the CPTP positive control
+python3 dual_field_quantum_nosignal3.py # no-signaling v3 / the GENERAL no-go, round 6 (<5 s) — all states + full Bloch sphere; no-signaling for every state => F outcome-independent (P' = P); the |Phi+>-alone subtlety
 ```
 
 ## What each computes
@@ -71,6 +72,26 @@ family |ψ_θ⟩ = cosθ|00⟩+sinθ|11⟩ — all-state no-signaling forces
 `w = c(α,β)` (proof sketch in README §3f); (E) the to-first-order null space
 of the tested square (16 F-values, 4 constraints, nullity 12). All hard
 asserts; exit 0 = consistent.
+
+`dual_field_quantum_nosignal3.py` is the round-6 GENERAL no-go (README §3g,
+2026-11-22). It extends v2 from the scoped XZ-plane / correlated-family theorem
+to the full 2×2 statement: **every** quantum state + **every** local projective
+2-outcome setting (the full Bloch sphere, not just the XZ plane). The machinery
+is exact (the joint law P(a,b|n,m) = ¼[1 + a·n·u + b·m·u + ab·n·T·m] with the
+state's Bloch vectors u and correlation tensor T; no Monte Carlo, no hardware).
+Parts: (A) a settings-only (outcome-independent) F is no-signaling-safe for
+every state (P′ = P); (B) the Alice-local F1=(1+a)/2 leaks A→B on |Φ⁺⟩ with the
+closed form ½·tanh(ε/2) (matches v2); (C) the **joint** outcome term e^{εkab}
+is *exactly* no-signaling-safe for |Φ⁺⟩ (the key new subtlety — |Φ⁺⟩ alone does
+NOT force F outcome-independent); (D) that same joint term leaks for |ψ_θ⟩,
+θ≠π/4, with the hand-derived 2-point closed form A→B TV = |cos2θ|·tanh(εk)
+(verified to 10⁻¹⁶ at θ = 0.2/0.3/0.5/0.7/1.0, vanishing exactly at θ=π/4);
+(E) an all-θ sweep showing the correlated family (every θ ⊂ "every state") is
+what kills the joint term — the leak is nonzero on both sides of θ=π/4 and
+peaks near the product-state limit. All hard asserts; exit 0 = consistent.
+Conclusion: no-signaling for every state ⟹ F is outcome-independent (P′ = P);
+the reweighting architecture is killed for 2×2 (open: higher dimensions,
+POVMs).
 
 ## Headline numbers (reference output)
 
@@ -139,6 +160,22 @@ asserts; exit 0 = consistent.
   the outcomes — the 4-corner test alone cannot prove triviality. Follow-up:
   generalize the theorem (all states / dimensions / POVMs); formulate the CPTP
   alternative architecture (README §3f).
+- **two-qubit no-signaling v3 (the GENERAL no-go, round 6, 2026-11-22):** the
+  full 2×2 statement — no-signaling (both directions) for **every** state and
+  **every** local projective setting (full Bloch sphere) ⟹ F is
+  outcome-independent (P′ = P). The load-bearing new result: the **joint**
+  outcome term e^{εkab} is *exactly* no-signaling-safe for |Φ⁺⟩ (Δ = 5.6×10⁻¹⁷,
+  both directions, all settings) — so |Φ⁺⟩ alone does NOT force triviality —
+  but leaks for |ψ_θ⟩, θ≠π/4, with the closed form **A→B TV = |cos2θ|·tanh(εk)**
+  (verified to 10⁻¹⁶; vanishes exactly at θ=π/4; peaks 0.758 near the
+  product-state limit θ→0). e^{εkab} is not rank-1 (det = 2sinh2εk ≠ 0), so it
+  is not in the round-5 product-safe family and leaks for some product states
+  too (|0⟩⊗I/2: A→B = 3.8×10⁻¹). Hence the **all-entanglement** condition (the
+  correlated family for every θ) kills the joint term, |Φ⁺⟩ kills the a/b local
+  terms, and any outcome-dependent F (a {1,a,b,ab} sum) is trivialized. The
+  "next cheap kill" from the round-6 review is done: universal branchwise
+  exponential reweighting is incompatible with no-signaling except trivially
+  (2×2; open: higher dimensions, POVMs).
 
 Tweak the baseline physics at the top of each file (the `P1` table for the 2-state;
 `BASE_CW / BASE_CCW / BASE_STAY / INERTIA` for the 3-state) to explore other
