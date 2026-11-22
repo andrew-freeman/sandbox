@@ -47,6 +47,7 @@ modification can be renamed into P'_phys.)
 | `toy/dual_field_quantum_nosignal2.py` | **no-signaling v2 / round-5 extension (§3f, 2026-11-22)** — the full 2×2 square (all 4 corners × 3 F classes × both directions, hand-derived closed forms to 8×10⁻¹⁷); the product-state safe-family proposition (w = s(a,x)·r(b,y), per-corner factorization leaks 40/40); the entangled-family no-go theorem (scoped: 2×2, XZ plane, |ψ_θ⟩ family — all-state no-signaling forces w = c(α,β), i.e. P′ = P); a CPTP positive control (observable local change + no signaling coexist); the to-first-order null space of the tested square (16 F-values, 4 constraints, nullity 12) |
 | `toy/dual_field_quantum_nosignal3.py` | **no-signaling v3 / the GENERAL no-go (§3f, 2026-11-22, round 6)** — extends v2 from the scoped XZ-plane/correlated-family theorem to the full 2×2 statement: ALL states + ALL local projective 2-outcome settings (full Bloch sphere). Establishes that no-signaling for every state ⟹ F is outcome-independent (P′ = P). The key new subtlety: \|Φ⁺⟩ ALONE is NOT sufficient — the joint outcome term e^{εkab} is exactly no-signaling-safe for \|Φ⁺⟩ but leaks for \|ψ_θ⟩ (θ≠π/4) with closed form \|cos2θ\|·tanh(εk) (verified to 10⁻¹⁶); \|Φ⁺⟩ kills the a/b local terms, the correlated family θ≠π/4 kills the a·b term. Closed forms hand-derived, hard-asserted; numpy only |
 | `ab-fork-one-pager.md` | **"One substrate, many representations" — the self-contained, forwardable artifact (2026-11-21, round-4 corrected):** no backstory required; the A/B fork, the 2-layer closed-form demonstration (13/13 PASS, corrected H_1/H_∞ + persistence metrics), the three findings, the psychedelic hook, the honest limits, and room positioning (reach room = this page; physics room = opener + the ε-program numbers) |
+| `toy/dual_field_quantum_auxiliary.py` | **the P⊗I auxiliary model (§3h, 2026-11-22, the review's commit #2 — "take Dual Field literally")** — an ACTUAL second dynamical sector 𝓘 coupled to the physical qubits A,B by a joint unitary U = e^{−iε H_int} (free H_AB=0; 𝓘 starts in |0⟩): a LOCAL coupling GEN = Z_A I_B Z_I vs a JOINT coupling INFO = Z_A Z_B Z_I, on the correlated A-B family ρ_c = ¼(I+XX) + (c/4)(IX+XI) (c∈[−1,1]). Three parts, all pre-registered and hard-asserted to machine precision (numpy only, exit 0): **(A) no-signaling holds** (a joint unitary is CPTP → Bob's marginal is independent of Alice's setting, Δ_B ≤ 1.1×10⁻¹⁶ for GEN, INFO, and a generic random coupling — no automatic FTL, unlike the killed reweighting); **(B) observable, reproducible back-action** with the EXACT closed form **D_B(INFO, c, ε) = |c|·sin²ε** (Bob's Bloch vector stays on the x-axis, x-component = c·cos 2ε; D_AB = O(ε); the back-action is a 2nd-order "virtual" process because [Z_𝓘,|0⟩⟨0|]=0 kills the first order); **(C) the informational (nonlocal) signature**: a LOCAL coupling leaves the remote party EXACTLY invariant (D_B = 0 for all c,ε), while the JOINT coupling reaches the remote party in a way a local one cannot (D_B = |c|sin²ε, even in c, zero at c=0) — the structural property ordinary local environmental noise lacks. Sharpens the open question: is coupling 𝓘 to the JOINT observable (Z_A Z_B vs Z_A) what lets the back-action reach the remote party? |
 
 ---
 
@@ -467,6 +468,92 @@ survival question has moved down to: *can an informational degree of freedom
 couple to quantum matter nontrivially, observably, and without violating
 no-signaling?* If no, nearly everything upstream dies; if yes (even in one
 construction), the project changes character.
+
+### 3h. The P⊗I auxiliary model — "Dual Field" taken literally (2026-11-22, the review's commit #2)
+
+The review's central surviving proposal, built and verified in
+`toy/dual_field_quantum_auxiliary.py` (numpy only, pre-registered closed forms
+hard-asserted, exit 0). Instead of rescaling branch probabilities *after* QM
+generates them (the reweighting, killed by the §3g no-go), introduce an **actual
+second dynamical subsystem 𝓘** coupled to the physical qubits A,B by a **joint
+unitary**, and observe only the reduced physical state:
+
+```
+Physical: qubits A, B.   Informational: qubit 𝓘.   Total dim = 8.
+Joint unitary   U(ε) = exp(−i ε H_int)        (free H_AB = 0; t = 1; 𝓘 starts in |0⟩).
+GEN  = Z_A I_B Z_I   (𝓘 couples to a LOCAL observable of A — an ordinary environment)
+INFO = Z_A Z_B Z_I   (𝓘 couples to the A-B JOINT observable Z_A Z_B — the informational case)
+Initial A-B state:  ρ_c = ¼(I + X X) + (c/4)(I X + X I),  c ∈ [−1,1]
+        (c = the A-B single-flip (IX+XI)/2 joint coherence: c=0 → a Bell-state
+         mixture [classically X-correlated, <XX>=1, <ZZ>=0]; c=±1 → |+>|+> / |->|->.
+         c is a property of the JOINT state, not of either local state alone.)
+```
+
+**Result A — No-signaling holds (the architecture is valid; no automatic FTL).**
+For GEN, INFO, **and a generic random 8-D coupling** (a CPTP unitary with no
+special structure), Bob's marginal is independent of Alice's local setting (X vs
+Z): max Δ_B = 1.1×10⁻¹⁶ across all couplings, c, ε. This is the Simon–Buzek–Gisin
+fence in action: a joint unitary is CPTP, so the reduced ρ_P dynamics is linear/CP
+**by construction** — the reweighting auto-signaled precisely because it was a
+post-hoc *non*-CPTP map on measured branches. *The auxiliary architecture does not
+inherit the reweighting's fatal wound.*
+
+**Result B — Observable, reproducible back-action, with an EXACT closed form.**
+The informational sector changes the physical statistics in a locally observable,
+reproducible way. The headline, verified to 2×10⁻¹⁶ across 16 (c,ε) points:
+
+```
+D_B(INFO, c, ε) = |c| · sin²(ε)        [trace distance of Bob's local state]
+```
+
+(i.e. Bob's Bloch vector stays on the x-axis with x-component = c·cos 2ε). The
+joint A-B state also changes, D_AB = O(ε) (D_AB/ε → 1.0). The Bob back-action is
+a **second-order ("virtual") process**: because 𝓘 starts in |0⟩ (a Z eigenstate),
+[Z_𝓘, |0⟩⟨0|] = 0 kills the first order, so D_B = |c|ε² + O(ε⁴) (D_B/ε² → |c| as
+ε→0, verified). This is the back-action the reweighting was *supposed* to give —
+now delivered by a legitimate CPTP evolution instead of a signaling post-hoc map.
+
+**Result C — The informational (nonlocal) signature: local ≠ joint.**
+Discriminate the two couplings by the back-action on the **remote** party B (the
+party H_int reaches only *through* A, via Z_A Z_B):
+
+| coupling | back-action on B (the remote party) |
+|---|---|
+| GEN = Z_A I_B Z_I (local) | **D_B = 0** for ALL c and ALL ε — a local coupling never touches B; Bob's state is EXACTLY invariant (max over all c,ε = 5.6×10⁻¹⁷) |
+| INFO = Z_A Z_B Z_I (joint) | **D_B = |c|·sin²ε** — a nontrivial function of the JOINT-state coherence c; even in c; zero at c = 0 (D_B(c=0) = 5.6×10⁻¹⁷) |
+
+*The structural property ordinary (local) environmental noise lacks:* a coupling
+to a **joint observable** produces a back-action on the remote party that a
+**local** coupling cannot (D_B = 0). The informational sector, coupled to a joint
+observable, reaches *both* parties, and the back-action is set by the joint state's
+coherence — not by either local state alone (B's local state is not what varies the
+back-action; it is the A-B single-flip coherence c).
+
+**Synthesis.** Reweighting (rounds 4–6): P′ ∝ P·e^{εF}, a post-hoc *non*-CPTP map
+on measured branches → it signaled (the general no-go). The P⊗I auxiliary model: a
+joint unitary is CPTP → it does **not** signal (A), while carrying an **observable**
+back-action (B) that is **informational/nonlocal** (C). "Dual Field" = an actual
+second dynamical sector coupled to a joint observable — not "ordinary physics + an
+informational score." This is the first construction in which an informational
+degree of freedom couples to quantum matter **nontrivially, observably, and
+without violating no-signaling** — the survival question the review posed, answered
+"yes" in one concrete construction.
+
+**Honest limits + the open question this toy sharpens.** The closed form
+D_B = |c|sin²ε is exact *for this coupling and this initial-state family*; it is a
+demonstration, not a theorem over all H_int. The load-bearing open question
+(next step): **is coupling 𝓘 to the JOINT observable (Z_A Z_B rather than Z_A) the
+structural property that lets the back-action reach the remote party, or can a
+generic H_int (a random 8-D Hermitian, or a local coupling with 𝓘 in a
+superposition) reproduce the c-dependent back-action on B?** If every interesting
+H_int just looks like an ordinary hidden environment (local, or a trivial
+reparameterization of it), that is a *useful* failure (Dual Field → ordinary extra
+field). If the joint-observable coupling is what's required, that **locates the
+real novelty**: the informational sector must couple to a *correlational* property
+of the physical system — a genuine "second field" with no single-particle home.
+(Also open: can the back-action be made *informational* in the stronger sense —
+dependent on the mutual information / causal organization of A-B — rather than on
+a fixed joint-observable amplitude c?)
 
 ## 4. Bottom line — what the hypothesis now owes
 
