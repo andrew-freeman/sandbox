@@ -390,7 +390,7 @@ program grows):**
 | alienness = a fourth quantity | robust (measure blind-spot) |
 | bad trip = fluctuating γ | prediction (extension pending) |
 | psychedelic mappings (trip-speak) | candidate interpretations (§10) |
-| two-qubit no-signaling for the class of F | open (queued, program-level next) |
+| two-qubit no-signaling for the class of F | **run 2026-11-21** (README §3f): Alice-local + joint/future F leak (Δ~ε/4, ε/8); Bob-local F survives to all orders; the no-go dichotomy (observable ε ⇒ signaling, or history-ensemble ε ⇒ invisible) |
 
 ## 10. Speculative mappings (demoted 2026-11-21 — candidate interpretations, not derived)
 
