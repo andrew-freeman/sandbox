@@ -43,6 +43,7 @@ modification can be renamed into P'_phys.)
 | `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
 | `psychedelic-ab-fork-note.md` | A/B fork diagnostic (2026-11-21) — psychedelic phenomenology (LSD 5-HT2A entorhinal disconnection; ketamine NMDA dissociation) holds the substrate ~fixed and retunes the generative model → experience tracks the description layer (B); **under the stated experience assumption the fork leans D_min (B)**; 2-layer toy design + pre-registered predictions + results |
 | `toy/dual_field_toy_2layer.py` | 2-layer substrate/experience toy — ONE fixed 1st-order-chain trajectory (layer A, D_causal=N) + BSC gate γ (layer B, entorhinal-disconnection formalization); all pre-registered closed forms verified (I=1−h(γ), ρ_Y=ρ_X(1−2γ)², H_rate=…); A invariant / B freely parameterized → the experience is a B-object (numpy only) |
+| `ab-fork-one-pager.md` | **"One substrate, many realities" — the self-contained, forwardable artifact (2026-11-21):** no backstory required; the A/B fork, the 2-layer closed-form demonstration (13/13 PASS), the three counterintuitive results, the psychedelic hook, the honest limits, and room positioning (reach room = this page; physics room = opener + the ε-program numbers) |
 
 ---
 
