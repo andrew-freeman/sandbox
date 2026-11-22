@@ -32,12 +32,18 @@ Each prints:
 `P_DF ∝ P_phys·exp(ε·I)` reweighting. It is the 2-layer formalization behind
 `../psychedelic-ab-fork-note.md` (the D_causal/D_min fork diagnostic). Layer A =
 ONE realized trajectory of a 1st-order chain (P(stay)=0.99, ξ≈50; the "actual
-causal history", D_causal=N, invariant). Layer B = a binary-symmetric-channel
-"gate" γ on that trajectory (the formalization of entorhinal disconnection:
-random input bleeds into the model with probability γ). It verifies the
-closed forms `I(X;Y)=1−h(γ)`, `ρ_Y=ρ_X(1−2γ)²`,
-`H_rate(Y)=h((1+ρ_X(1−2γ)²)/2)` empirically across γ, plus known-limit asserts
-(γ=0→Y≡H, γ=1→Y≡1−H), and shows A invariant / B freely parameterized.
+causal history", D_causal=N, invariant). Layer B = a **bit-flip channel**
+"gate" (BSC, crossover γ) on that trajectory (the formalization of entorhinal
+disconnection; ROUND-4 FIX: the channel is a bit flip, NOT "replace by a random
+bit" — that mechanism has effective crossover γ/2 and never reaches the mirror).
+It verifies the closed forms `I(X;Y)=1−h(γ)`, `ρ_Y(k)=ρ_X^k(1−2γ)²` (amplitude
+scaling; the DECAY RATE is invariant), `H_1(Y)=h((1+ρ_X(1−2γ)²)/2)` (the 1-step
+conditional entropy — NOT the hidden-Markov entropy rate) empirically across γ,
+reports the true entropy rate `H_∞` (Bayes filter; limits + γ↔1−γ symmetry
+asserted), and the corrected 1/e persistence scale (49.5 → 27.4 at γ=0.1;
+ABSENT for γ∈(0.19,0.81)); known-limit asserts: γ=0→Y≡H, γ=1→Y≡1−H, and the
+(1−2γ)² amplitude flatness at lags 1–40. Shows A invariant / B freely
+parameterized. Review record: `../psychedelic-ab-fork-note.md` §9.
 
 ## Headline numbers (reference output)
 
@@ -64,12 +70,18 @@ closed forms `I(X;Y)=1−h(γ)`, `ρ_Y=ρ_X(1−2γ)²`,
   verified across 13 γ values (max deviation 0.17 tolerance units; known-limit
   asserts pass exactly). `I(γ)` and `ρ_Y(γ)` are U-shaped (min at 0.5);
   `H_rate(γ)` and the zlib compressibility are ∩-shaped (max at 0.5); the
-  predicted γ↔1−γ mirror symmetry holds. The experience's persistence ξ_Y
-  collapses 48.7→2.2 at γ=0.1 — the substrate's long-range temporal structure
-  dissolves at a *small* gate opening. At γ=1, `I≈1` is retained under an
-  inverted mapping (zlib identical to γ=0) — **information retention ≠
-  perceptual stability**. At γ=0.5 the experience is maximally incompressible
-  yet structurally white noise — the S/D fork maximized at the experience layer.
+  predicted γ↔1−γ mirror symmetry holds. The experienced correlation AMPLITUDE
+  is ×(1−2γ)² — the 1/e memory scale runs 49.5→27.4 at γ=0.1 and is ABSENT for
+  γ∈(0.19,0.81) — while the long-lag DECAY RATE is invariant (the substrate's
+  time is hidden, not destroyed; the experience is a hidden-Markov process).
+  `H_∞(γ=0.1) = 0.534` (Bayes filter; the old "H_rate" column was the 1-step
+  conditional `H_1 = 0.694` — round-4 correction, note §9). At γ=1, `I≈1` is
+  retained under an inverted mapping (zlib identical to γ=0) — **information
+  retention ≠ perceptual stability** (by construction: I/ρ/H/zlib are invariant
+  under symbol relabeling — the measures are blind to representation;
+  "alienness" is the fourth quantity). At γ=0.5 the experience is maximally
+  incompressible yet structurally white noise — the S/D fork maximized at the
+  experience layer.
 
 Tweak the baseline physics at the top of each file (the `P1` table for the 2-state;
 `BASE_CW / BASE_CCW / BASE_STAY / INERTIA` for the 3-state) to explore other

@@ -43,7 +43,7 @@ modification can be renamed into P'_phys.)
 | `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
 | `psychedelic-ab-fork-note.md` | A/B fork diagnostic (2026-11-21) — psychedelic phenomenology (LSD 5-HT2A entorhinal disconnection; ketamine NMDA dissociation) holds the substrate ~fixed and retunes the generative model → experience tracks the description layer (B); **under the stated experience assumption the fork leans D_min (B)**; 2-layer toy design + pre-registered predictions + results |
 | `toy/dual_field_toy_2layer.py` | 2-layer substrate/experience toy — ONE fixed 1st-order-chain trajectory (layer A, D_causal=N) + BSC gate γ (layer B, entorhinal-disconnection formalization); all pre-registered closed forms verified (I=1−h(γ), ρ_Y=ρ_X(1−2γ)², H_rate=…); A invariant / B freely parameterized → the experience is a B-object (numpy only) |
-| `ab-fork-one-pager.md` | **"One substrate, many realities" — the self-contained, forwardable artifact (2026-11-21):** no backstory required; the A/B fork, the 2-layer closed-form demonstration (13/13 PASS), the three counterintuitive results, the psychedelic hook, the honest limits, and room positioning (reach room = this page; physics room = opener + the ε-program numbers) |
+| `ab-fork-one-pager.md` | **"One substrate, many representations" — the self-contained, forwardable artifact (2026-11-21, round-4 corrected):** no backstory required; the A/B fork, the 2-layer closed-form demonstration (13/13 PASS, corrected H_1/H_∞ + persistence metrics), the three findings, the psychedelic hook, the honest limits, and room positioning (reach room = this page; physics room = opener + the ε-program numbers) |
 
 ---
 
@@ -291,13 +291,21 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
    layer). **Under the stated experience assumption**, the depth4 D_causal/D_min
    fork therefore **leans D_min (B)** for the experience-relevant branch. The
    2-layer toy (fixed 1st-order chain = layer A, D_causal=N; BSC gate γ = layer B)
-   verifies the pre-registered closed forms (I=1−h(γ), ρ_Y=ρ_X(1−2γ)²,
-   H_rate(Y)=h((1+ρ_X(1−2γ)²)/2); all 13 γ rows PASS) and shows A invariant / B
-   freely parameterized. Empirical: ξ_Y collapses 48.7→2.2 at γ=0.1 (the
-   substrate's temporal structure dissolves at a small gate opening); γ=1 retains
-   I≈1 under an inverted mapping (information retention ≠ perceptual stability);
+   verifies the pre-registered closed forms (I=1−h(γ), ρ_Y(k)=ρ_X^k(1−2γ)²,
+   H_1(Y)=h((1+ρ_X(1−2γ)²)/2); all 13 γ rows PASS) and shows A invariant / B
+   freely parameterized. Empirical (ROUND-4 CORRECTED metrics — the 2026-11-21
+   external review caught that H_rate was the 1-step conditional H_1, not the
+   hidden-Markov entropy rate, and that the old ξ metric was a 1st-order
+   extrapolation; the toy now reports H_∞ via a Bayes filter): the experienced
+   correlation amplitude is ×(1−2γ)² (1/e memory scale 49.5→27.4 at γ=0.1,
+   absent for γ∈(0.19,0.81)) while the long-lag DECAY RATE is invariant — the
+   substrate's time is HIDDEN, not destroyed; H_∞ = 0.534 at γ=0.1 (∩-shape
+   survives, magnitudes corrected); γ=1 retains I≈1 under an inverted mapping
+   (by construction — I/ρ/H/zlib are invariant under symbol relabeling: the
+   measures are BLIND to representation, "alienness" = a fourth quantity);
    γ=0.5 = maximally incompressible but white-noise structure (the S/D fork
-   maximized at the experience layer). Status: **analogical/structural, not a
+   maximized at the experience layer). Review record + claim-status table:
+   `psychedelic-ab-fork-note.md` §9. Status: **analogical/structural, not a
    proof** — it constrains the A/B choice under the experience assumption and is
    silent on the substrate ontology by design. Andrey's call on the fork is still
    pending.
@@ -317,3 +325,15 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
    operator + dominant-eigenvector factor r_ε(y)/r_ε(x)) / cloning population
    dynamics, computing its (J, I, Sdot) signature. That is the depth thread worth
    continuing.
+6. **Two-qubit no-signaling check (round-4 program-level priority, 2026-11-21,
+   proposed in the external review, Claude).** Take P_i' ∝ P_i·exp(εF_i), define
+   F by downstream consequences, put it on an entangled two-qubit system, and
+   test whether the reweighting LEAKS SIGNAL across a causal cut (no-signaling
+   between parties that cannot communicate). If it leaks for every F of that
+   shape → a **no-go result for the whole class** (fits the seed's "success even
+   if ε = 0"); if some F survives → the first sign the idea is more than a
+   template. Bounded, cheap, and it targets the question most likely to KILL the
+   hypothesis — so it runs BEFORE any more classical toys (every toy so far is
+   classical and cannot touch that question). The claim-status table in
+   `psychedelic-ab-fork-note.md` §9 (verified / artifact / tautology /
+   interpretation / prediction) is the standing ledger for the program.

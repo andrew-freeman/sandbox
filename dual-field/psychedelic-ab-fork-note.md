@@ -2,7 +2,9 @@
 
 **Date:** 2026-11-21
 **Status:** argument (§1–4) + 2-layer formalization toy (`toy/dual_field_toy_2layer.py`,
-pre-registered closed-form predictions in §5, results in §6).
+pre-registered closed-form predictions in §5, results in §6) + **round-4 external
+review and corrections (§9–10, same day)** — toy metrics corrected (H_1 vs H_∞,
+persistence), one-pager revised (`ab-fork-one-pager.md`).
 **Companion to:** the depth4 fork (the open branch since 2026-08-26). This note adds
 one argument to the fork's decision record: **under the stated "experience
 assumption", the experience-relevant branch of the fork selects D_min (B).**
@@ -120,6 +122,17 @@ quantity of interest: the experience's persistence
 ξ_Y = 1/|ln ρ_Y| collapses from ≈50 (substrate) to ≈2 already at γ=0.1 — the
 substrate's long-range temporal structure dissolves at a *small* gate opening.
 
+**Round-4 corrections to the metrics above (see §9):** (1) the channel is the
+bit-flip channel with crossover γ (the "random input bleed" wording of §5's
+design text describes a γ/2 channel); (2) the H_rate column is H_1 = the
+1-step conditional entropy — Y is a hidden-Markov process, and its true entropy
+rate H_∞ (Bayes filter) is 0.534 at γ=0.1 / 0.358 at γ=0.05, below H_1's
+0.694 / 0.479 (the ∩-shape survives, the magnitudes do not); (3) the ξ_Y line
+is a metric artifact — the corrected 1/e memory scale runs 49.5 → 27.4 at
+γ=0.1 (−45%), is absent for γ ∈ (0.19, 0.81), and the long-lag decay rate is
+**invariant** (amplitude ×(1−2γ)² only): the substrate's time is hidden, not
+destroyed.
+
 **Known-limit tells (hard asserts in the toy):** γ=0 → Y≡H exactly; γ=1 → Y≡1−H
 exactly; γ=0.5 → I_emp≈0 and H_emp≈1 (within MC tolerance).
 
@@ -176,12 +189,21 @@ Readings:
 3. **Temporal structure dissolves at a SMALL gate opening**: ξ_Y collapses
    48.7 → 2.2 already at γ=0.1 (and 0.53 by γ=0.3). The substrate's long-range
    persistence — the "world's temporal structure" — is the first thing to go.
+   *(Round-4: the run's numbers are correct; the ξ metric was a 1st-order
+   extrapolation on a hidden-Markov process. Corrected statement: the
+   experienced correlation amplitude is ×(1−2γ)² (the 1/e memory scale
+   49.5 → 27.4 at γ=0.1, absent for γ ∈ (0.19, 0.81)) while the long-lag DECAY
+   RATE is invariant — the substrate's time is hidden, not destroyed. §9.3.)*
 4. **Information retention ≠ perceptual stability**: γ=1 keeps I≈1 (the
    experience carries essentially full information about the substrate) under an
    inverted mapping, with the same persistence and compressibility as γ=0
    (zlib 0.121 at both extremes). A stable-but-alien mirror world is
    information-theoretically indistinguishable from sobriety — "alienness" is
    not captured by I, ρ, H_rate, or compressibility.
+   *(Round-4: re-framed — I/ρ/H/zlib are all invariant under symbol relabeling,
+   so the indistinguishability holds BY CONSTRUCTION; the finding is that the
+   four standard measures are blind to representation, and "alienness" is a
+   fourth quantity. §9.)*
 5. **S/D at the experience layer**: at γ=0.5 the experience is maximally
    incompressible (zlib→1.001, H_rate=1, I=0) — maximum S — while its
    generative structure is white noise (D_min→0). The S/D fork is maximized at
@@ -203,6 +225,15 @@ structure, not ontology (the toy is silent on the substrate by design).
    the "fixed substrate" analogy is strained at that layer — the clean reading is
    that the experience-relevant weight lives in description space (B), i.e. the
    D_min side of the fork.
+4. **Two-knob (γ, M) toy (round-4 reviewer proposal, 2026-11-21):**
+   B = M(A) ⊕ E_γ with γ ∈ [0, ½] = noise/disconnection and M = a deterministic
+   remapping. "Stable alien world" = (γ≈0, M≠I) — high fidelity, high stability,
+   radically transformed mapping. Replaces the 1-D BSC's artificial U-turn with
+   a 2-D phenomenological phase space; the 1-D toy remains the
+   M ∈ {identity, inversion} slice. Build after the fluctuating-γ extension
+   (or instead of it, if the review's "park the psychedelic extension"
+   guidance wins — the ε-program's two-qubit check is the program-level
+   priority, §9).
 
 ## 8. Recreational mapping (2026-11-21, requested translation)
 
@@ -243,3 +274,145 @@ Limits: single-gate lumping (real drugs hit several receptors; the toy folds the
 into one gamma); the gamma<->dose map is structural, not calibrated; the
 fluctuating-gamma claim is a prediction pending the fluctuating-gamma extension
 (S7.1).
+
+## 9. Round-4 review — two external reviews + agent re-verification (2026-11-21)
+
+**Provenance.** The one-pager was sent to two external models (ChatGPT/
+OpenAI-5.6 and Claude Sonnet 5 — the "big brothers"; raw files
+~/ab_toy_feedback_chatgpt, ~/ab_toy_feedback_claude). The agent re-verified
+every numerical claim with its own code before integrating. **Verdict: all four
+technical objections hold, and the two reviewers agree with each other almost
+completely** (their 0.533 vs 0.536 discrepancy is their own MC noise). The
+corrections make the A/B idea better, not worse; the "weirdest part" (alienness
+as a fourth quantity) survives and strengthens.
+
+**The four technical objections (each agent-verified):**
+
+1. **The verbal channel ≠ the implemented channel.** The one-pager text
+   ("replaced by an independent random bit") describes a channel with
+   effective crossover γ/2 — it tops out at white noise and never reaches the
+   mirror; the toy implements the bit flip (crossover γ). Agent check:
+   random replacement measured an effective flip rate of 0.0491 at γ=0.1
+   (≈γ/2) and 0.4983 at γ=1. Fix: text now says bit-flip channel (crossover γ);
+   the trap is noted in the toy docstring.
+2. **H_rate was actually H_1, the 1-step conditional entropy.** Y is a
+   hidden-Markov process (BSC observation of a 1st-order chain), so the true
+   entropy rate H_∞ = E[h(q_t)] (Bayes filter) < H_1. Agent check (independent
+   filter, correct predict→observe order): H_∞ = 0.5338 at γ=0.1 (reviewers:
+   0.533 / 0.536) vs H_1 = 0.6904; H_∞ = 0.3579 at γ=0.05 (Claude: 0.355) vs
+   0.4750. The ∩-shape survives; the magnitudes did not. Fix: the toy reports
+   both — H_1 with its closed form; H_∞ filter-measured with limits
+   (0.0808/1/0.0808) + γ↔1−γ symmetry asserted.
+3. **"Time goes first" (the best headline) is a metric artifact.** The old
+   ξ_Y = −1/ln ρ_Y(1) extrapolated 1st-order Markov from lag 1, but Y is not
+   1st-order. True correlation: C_Y(k) = (1−2γ)²ρ_A^k for k≥1 — noise scales
+   the AMPLITUDE, not the decay rate. Agent check: C_Y(k)/C_X(k) flat at
+   0.643–0.656 over lags 1–40 at γ=0.1 (theory 0.64); measurable-lag slope of
+   ln C_Y = −0.0212 vs ln ρ_A = −0.0202. Corrected result: the 1/e memory
+   scale (crossing from the C(0)=1 baseline) runs 49.5 → 27.4 at γ=0.1 (−45%)
+   and is ABSENT for the whole middle band γ ∈ (0.19, 0.81); the decay rate is
+   invariant. "Which erodes first" is measure-dependent: at γ=0.1 — amplitude
+   −36%, 1/e scale −45%, single-symbol I −47%, information rate −20% (agent
+   check: I_rate(A;Y)/T = H_∞ − h(γ) = 0.0647 vs A's rate 0.0808 = 80%
+   retained, matching Claude's "80% of A's"). What survives — and is stronger:
+   **the substrate's time is hidden, not destroyed** (Y is a hidden-Markov
+   process; the rate is recoverable by a filter).
+4. **13/13 PASS = verification, not evidence.** The simulation verifies the
+   implementation against the closed forms; the claim enters as an assumption.
+   Fix: one-pager wording ("verification tests", not "evidence for the claim").
+
+**Conceptual corrections adopted:**
+
+- **Single-knob artifact:** for a BSC, γ>0.5 is anticorrelation, not more
+  disconnection (I(γ) = I(1−γ)); the U-shapes are partly built into the
+  parameterization. The honest object is the 2-D phase space (γ = noise ∈
+  [0,½], M = remapping), B = M(A) ⊕ E_γ; "stable alien world" = (γ≈0, M≠I).
+  Queued as the next toy (§7.4).
+- **"Indistinguishable from sobriety" is by construction:** I, ρ, H, zlib are
+  all invariant under symbol relabeling, so the finding is that the four
+  standard measures are BLIND to representation — **alienness = a fourth
+  quantity** (the reviewers independently converged on it: "alienness cannot
+  be represented by noise"; "make it one").
+- **The substrate sentence:** "the substrate is nearly unchanged" →
+  abstraction-level statement (the model is implemented by the substrate
+  dynamics; the first-person change is organizational, not of content).
+  Legitimate bridge = REBUS (attenuated precision of high-level priors).
+  Reviewer note: a 2026 Nat Med study (DOI 10.1038/s41591-026-04287-9,
+  reviewer-cited, not independently verified) reports widespread connectivity
+  reconfiguration under LSD — the "fixed substrate" phrasing is further
+  weakened.
+- **Headline changed (reviewer proposal):** "One substrate, many
+  representations: a closed-form two-layer model of latent dynamics and
+  experienced streams." Main result: identical latent dynamics do not uniquely
+  determine observational phenomenology; the interesting work is classifying
+  the transformations T by what they preserve (fidelity, temporal structure,
+  entropy, compressibility, geometry, self-model stability).
+- **Psychedelic-bridge haircut:** speculative mappings demoted to §10
+  (candidate interpretations, not derived); the "set/setting is the #1 lever"
+  and "microdose ≈ γ 0.05–0.1" claims cut from the one-pager; prior-art
+  paragraph added (REBUS 2019, the thalamocortical filter/CSTC line
+  (Vollenweider et al.), Huxley's reducing valve as ancestor).
+
+**Claude's smaller points (resolved):** (a) the D_min = log N construction —
+the log depth comes from the associative (parallel-prefix) composition of the
+Markov transition map: a property of this substrate class, not of "the same
+trajectory" in general; stated as limit §6.6 in the one-pager. (b) The
+ratchet's `periodic_ss` fix verified IN: the ratchet runs clean (exit 0,
+2026-11-21), so README §3a–d is safe to send physics readers to.
+
+**Program level (Claude, adopted into the README next steps):** the
+**two-qubit no-signaling check** as the program's next step — take
+P_i' ∝ P_i·exp(εF_i), define F by downstream consequences, put it on an
+entangled two-qubit system, and test whether the reweighting leaks signal
+across a causal cut. If it leaks for every F of that shape → a no-go result
+for the whole class (fits the seed's "success even if ε = 0"); if some F
+survives → the first sign the idea is more than a template. Bounded, cheap,
+and it targets the question most likely to KILL the hypothesis — so it runs
+BEFORE more classical toys (every toy so far is classical and cannot touch
+that question). Claude also expects ε = 0 or an inconsistency ("nearly every
+positive-looking result turned out to be a bug, a symmetry artifact, or a
+tautology once checked — that's the process working, not a failing of the
+project") and proposed the claim-status table below. Adopted.
+
+**Claim-status table (adopted as a standing practice; kept current as the
+program grows):**
+
+| claim | status |
+|---|---|
+| A invariant / B freely parameterized (13 rows) | verified (implementation vs closed form) |
+| ρ_Y(k) = (1−2γ)²ρ_A^k; decay rate invariant | verified (closed form + measured) |
+| 1/e scale 49.5 → 27.4 at γ=0.1; absent for γ∈(0.19, 0.81) | verified (analytic + asserted) |
+| H_∞(0.1) = 0.534; H_∞(0.05) = 0.358 | verified (filter; reviewers 0.533/0.536, 0.355) |
+| experience tracks B (the claim) | interpretation (stated experience assumption) |
+| fork leans D_min (under the experience assumption) | argument (analogical) |
+| "time goes first" (old headline) | artifact (1st-order extrapolation) — corrected |
+| "indistinguishable from sobriety" (γ=1) | by construction (relabeling invariance) |
+| alienness = a fourth quantity | robust (measure blind-spot) |
+| bad trip = fluctuating γ | prediction (extension pending) |
+| psychedelic mappings (trip-speak) | candidate interpretations (§10) |
+| two-qubit no-signaling for the class of F | open (queued, program-level next) |
+
+## 10. Speculative mappings (demoted 2026-11-21 — candidate interpretations, not derived)
+
+Demoted from the one-pager per the round-4 review: fun and useful, but the
+model does not derive them and neuroscience does not establish them (HPPD in
+particular has heterogeneous symptoms and limited mechanistic evidence per
+reviewer-cited reviews):
+
+- **Bad trip = fluctuating γ** (not high stable γ — high *stable* γ is a
+  stable, possibly terrifying mirror world; the bad trip oscillates between
+  real and alien without resolving; the mind cannot build a model because the
+  gate keeps moving). Set/setting = γ-stabilizers. Pending the fluctuating-γ
+  extension (§7.1) — that build turns this from prediction into measurement.
+- **Flashbacks/HPP = γ stuck half-open** — residual bleed of mirror-world
+  structure (the geometrics).
+- **Ego death** = self-model dissolution in the high-γ regime; a "lastingly
+  changed self" = the *baseline* γ shifted (plasticity); integration =
+  re-tuning to the new baseline.
+- **MDMA ≈ close the gate + amplify the social channel** — an amplifier of the
+  *other-model*, not a destabilizer of the *self-model* (why it is an
+  empathogen, not a psychedelic).
+- **Gain vs gate:** alcohol = substrate volume down (dull/blur);
+  caffeine/amphetamines = up (sharpen) — the mapping is intact; they are not
+  on the γ dial at all.
+- **Microdose ≈ γ 0.05–0.1** — a positional statement, not a calibration.
