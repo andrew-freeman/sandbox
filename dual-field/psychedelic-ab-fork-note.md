@@ -145,9 +145,50 @@ exactly; γ=0.5 → I_emp≈0 and H_emp≈1 (within MC tolerance).
 **Limitations:** static, memoryless channel; 1-D substrate; the toy shows
 structure, not ontology (by design: silent on the substrate).
 
-## 6. Results
+## 6. Results (2026-11-21, `python3 toy/dual_field_toy_2layer.py`)
 
-(Pending — filled in from the toy run, same pattern as the depth rounds.)
+**All pre-registered predictions confirmed.** Layer A invariant across all rows
+(checksum `2ef5809aebc5a119`; ρ_A=+0.9797 vs theory +0.98; H_rate=0.0818 vs
+0.0808; ξ_A=48.7; D_causal=N=200 000). Empirical vs closed form, all 13 γ rows
+PASS (max deviation 0.17 tolerance units):
+
+| γ | I_emp / I_theory | ρ_emp / ρ_theory | H_rate_emp / theory | zlib ratio | ξ_Y |
+|---|---|---|---|---|---|
+| 0.00 | 0.9990 / 1.0000 | +0.9797 / +0.9797 | 0.0818 / 0.0818 | 0.121 | 48.7 |
+| 0.10 | 0.5336 / 0.5310 | +0.6293 / +0.6270 | 0.6915 / 0.6941 | 0.665 | 2.2 |
+| 0.30 | 0.1177 / 0.1187 | +0.1541 / +0.1568 | 0.9827 / 0.9822 | 0.973 | 0.5 |
+| 0.50 | 0.0000 / 0.0000 | −0.0012 / 0.0000 | 1.0000 / 1.0000 | 1.001 | 0.0 |
+| 0.90 | 0.5302 / 0.5310 | +0.6269 / +0.6270 | 0.6940 / 0.6941 | 0.668 | 2.1 |
+| 1.00 | 0.9990 / 1.0000 | +0.9797 / +0.9797 | 0.0818 / 0.0818 | 0.121 | 48.7 |
+
+(full 13-row table + 4 ASCII plots in the toy output; known-limit asserts
+γ=0→Y≡H and γ=1→Y≡1−H pass exactly.)
+
+Readings:
+
+1. **A invariant, B freely parameterized** — the same trajectory H (one causal
+   unfolding, D_causal=N) yields 13 different experienced statistics. The
+   experience is a B-object.
+2. **The predicted shapes all hold**: I(γ) and ρ(γ) U-shaped (min at 0.5),
+   H_rate(γ) and the zlib ratio ∩-shaped (max at 0.5). The γ→1−γ mirror symmetry
+   of the U-shape is empirically visible (γ=0.1 vs γ=0.9 rows agree to MC noise:
+   I 0.5336/0.5302, ρ +0.6293/+0.6269, zlib 0.665/0.668).
+3. **Temporal structure dissolves at a SMALL gate opening**: ξ_Y collapses
+   48.7 → 2.2 already at γ=0.1 (and 0.53 by γ=0.3). The substrate's long-range
+   persistence — the "world's temporal structure" — is the first thing to go.
+4. **Information retention ≠ perceptual stability**: γ=1 keeps I≈1 (the
+   experience carries essentially full information about the substrate) under an
+   inverted mapping, with the same persistence and compressibility as γ=0
+   (zlib 0.121 at both extremes). A stable-but-alien mirror world is
+   information-theoretically indistinguishable from sobriety — "alienness" is
+   not captured by I, ρ, H_rate, or compressibility.
+5. **S/D at the experience layer**: at γ=0.5 the experience is maximally
+   incompressible (zlib→1.001, H_rate=1, I=0) — maximum S — while its
+   generative structure is white noise (D_min→0). The S/D fork is maximized at
+   the experience layer under maximum disconnection, exactly as pre-registered.
+
+Caveats carried over from §5: static, memoryless channel; 1-D substrate;
+structure, not ontology (the toy is silent on the substrate by design).
 
 ## 7. Next steps
 

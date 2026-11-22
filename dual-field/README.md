@@ -41,6 +41,8 @@ variable — the "reparameterization" objection is not substantive, since any
 modification can be renamed into P'_phys.)
 | `toy/README.md` | How to run + expected output |
 | `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
+| `psychedelic-ab-fork-note.md` | A/B fork diagnostic (2026-11-21) — psychedelic phenomenology (LSD 5-HT2A entorhinal disconnection; ketamine NMDA dissociation) holds the substrate ~fixed and retunes the generative model → experience tracks the description layer (B); **under the stated experience assumption the fork leans D_min (B)**; 2-layer toy design + pre-registered predictions + results |
+| `toy/dual_field_toy_2layer.py` | 2-layer substrate/experience toy — ONE fixed 1st-order-chain trajectory (layer A, D_causal=N) + BSC gate γ (layer B, entorhinal-disconnection formalization); all pre-registered closed forms verified (I=1−h(γ), ρ_Y=ρ_X(1−2γ)², H_rate=…); A invariant / B freely parameterized → the experience is a B-object (numpy only) |
 
 ---
 
@@ -279,7 +281,26 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
    TUR for the chiral (S-odd) case: the chiral current is a T-odd output, so its
    dissipation cost and the "magnetic-field" accounting (the handedness as a
    thermodynamic variable) is the natural next analysis.
-4. **`depth3` (DONE, 2026-08-25): the "I = depth" functional is not a clean new
+4. **A/B fork diagnostic (2026-11-21, `psychedelic-ab-fork-note.md` +
+   `dual_field_toy_2layer.py`): psychedelic phenomenology tracks the description
+   layer (B).** LSD (5-HT2A → entorhinal disconnection) and ketamine (NMDA
+   antagonism → thalamocortical gating) hold the substrate ~fixed and retune the
+   generative model; the experienced "reality" tracks the model parameters, not
+   the substrate → reality-as-experienced is a **B-object** (generative/description
+   layer). **Under the stated experience assumption**, the depth4 D_causal/D_min
+   fork therefore **leans D_min (B)** for the experience-relevant branch. The
+   2-layer toy (fixed 1st-order chain = layer A, D_causal=N; BSC gate γ = layer B)
+   verifies the pre-registered closed forms (I=1−h(γ), ρ_Y=ρ_X(1−2γ)²,
+   H_rate(Y)=h((1+ρ_X(1−2γ)²)/2); all 13 γ rows PASS) and shows A invariant / B
+   freely parameterized. Empirical: ξ_Y collapses 48.7→2.2 at γ=0.1 (the
+   substrate's temporal structure dissolves at a small gate opening); γ=1 retains
+   I≈1 under an inverted mapping (information retention ≠ perceptual stability);
+   γ=0.5 = maximally incompressible but white-noise structure (the S/D fork
+   maximized at the experience layer). Status: **analogical/structural, not a
+   proof** — it constrains the A/B choice under the experience assumption and is
+   silent on the substrate ontology by design. Andrey's call on the fork is still
+   pending.
+5. **`depth3` (DONE, 2026-08-25): the "I = depth" functional is not a clean new
    degree of freedom.** The strict question (can two processes have MATCHED ordinary
    statistics but radically different *irreducible* generation cost?) has a **no**:
    the *irreducible* (shortcut-free) cost is a function of P_phys (the dynamic), so
