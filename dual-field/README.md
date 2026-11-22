@@ -43,7 +43,8 @@ modification can be renamed into P'_phys.)
 | `experimental-proposal.md` | **Two-track experimental proposal** (Steps 6+7): analog information ratchet (controllable ε-knob) + bounds program on the fundamental ε |
 | `psychedelic-ab-fork-note.md` | A/B fork diagnostic (2026-11-21) — psychedelic phenomenology (LSD 5-HT2A entorhinal disconnection; ketamine NMDA dissociation) holds the substrate ~fixed and retunes the generative model → experience tracks the description layer (B); **under the stated experience assumption the fork leans D_min (B)**; 2-layer toy design + pre-registered predictions + results |
 | `toy/dual_field_toy_2layer.py` | 2-layer substrate/experience toy — ONE fixed 1st-order-chain trajectory (layer A, D_causal=N) + bit-flip gate γ (layer B, entorhinal-disconnection formalization); all pre-registered closed forms verified (I=1−h(γ), ρ_Y(k)=ρ_X^k(1−2γ)², H_1=h((1+ρ_X(1−2γ)²)/2)) + H_∞ (Bayes filter) + corrected 1/e persistence; A invariant / B freely parameterized → the experience is a B-object (numpy only; round-4 corrected) |
-| `toy/dual_field_quantum_nosignal.py` | **two-qubit no-signaling check (§3f, 2026-11-21)** — P' ∝ P·exp(εF) on |Φ⁺⟩, Alice basis X vs Z, Bob fixed Z; the reweighting of the full joint branches leaks Alice's basis choice into Bob's marginal for Alice-local (Δ~ε/4) and joint/future F (Δ~ε/8); the Bob-local F survives to all orders (factorization); closed forms verified to 8×10⁻¹⁷ (exact linear algebra, numpy only) |
+| `toy/dual_field_quantum_nosignal.py` | **two-qubit no-signaling check v1 (§3f, 2026-11-21)** — P' ∝ P·exp(εF) on |Φ⁺⟩, Alice basis X vs Z, Bob fixed Z; the reweighting of the full joint branches leaks Alice's basis choice into Bob's marginal for Alice-local (Δ~ε/4) and joint/future F (Δ~ε/8); the Bob-local F survives to all orders in the tested direction (factorization); closed forms verified to 8×10⁻¹⁷ (exact linear algebra, numpy only); two bugs found by the round-5 review are fixed in place and marked |
+| `toy/dual_field_quantum_nosignal2.py` | **no-signaling v2 / round-5 extension (§3f, 2026-11-22)** — the full 2×2 square (all 4 corners × 3 F classes × both directions, hand-derived closed forms to 8×10⁻¹⁷); the product-state safe-family proposition (w = s(a,x)·r(b,y), per-corner factorization leaks 40/40); the entangled-family no-go theorem (scoped: 2×2, XZ plane, |ψ_θ⟩ family — all-state no-signaling forces w = c(α,β), i.e. P′ = P); a CPTP positive control (observable local change + no signaling coexist); the to-first-order null space of the tested square (16 F-values, 4 constraints, nullity 12) |
 | `ab-fork-one-pager.md` | **"One substrate, many representations" — the self-contained, forwardable artifact (2026-11-21, round-4 corrected):** no backstory required; the A/B fork, the 2-layer closed-form demonstration (13/13 PASS, corrected H_1/H_∞ + persistence metrics), the three findings, the psychedelic hook, the honest limits, and room positioning (reach room = this page; physics room = opener + the ε-program numbers) |
 
 ---
@@ -239,45 +240,131 @@ Min detectable ε at 95% confidence scales as ~N^(−1/2) in trajectory length N
 - **3-state:** 0.48 (N=2×10³), 0.24 (2×10⁴), 0.09 (2×10⁵), 0.02 (2×10⁶).
 - So a small coupling **ε≈0.05 needs a ~10⁵–10⁶-step trajectory**.
 
-### 3f. Two-qubit no-signaling check — the first wall from existing physics (2026-11-21)
+### 3f. Two-qubit no-signaling check — the first wall from existing physics (2026-11-21; extended 2026-11-22)
 
-`toy/dual_field_quantum_nosignal.py` (exact linear algebra; numpy; a two-qubit
-state is a length-4 complex vector — no quantum hardware). The round-4 review's
-program-level test, run the same day: take the reweighting `P' ∝ P·exp(εF)` and
-put it on an entangled pair — **|Φ⁺⟩ = (|00⟩+|11⟩)/√2, Alice chooses her
-measurement basis (Z or X), Bob always measures Z, never communicates**. The
-branch is the full joint outcome (a,i,b); the reweighting acts on branch
-probabilities with per-setup normalization; the test is
-`Δ_B = TV(P'_B(·|X), P'_B(·|Z))` — Alice's basis choice leaking into Bob's
-marginal would be a signaling channel.
+`toy/dual_field_quantum_nosignal.py` (v1, round 4) and
+`toy/dual_field_quantum_nosignal2.py` (v2, round-5 extension; exact linear
+algebra, numpy only, no quantum hardware).
 
-**Pre-registered analytic predictions (derived before running; the toy
-reproduces them to 8×10⁻¹⁷ — exact arithmetic):** baseline `ρ_B = I/2` exact,
-`Δ_B(ε=0) = 0` for every F; then, for the three F classes of the round-4 spec:
+**Setup (v1).** Put the reweighting `P' ∝ P·exp(εF)` on
+**|Φ⁺⟩ = (|00⟩+|11⟩)/√2** — Alice chooses her measurement basis (Z or X),
+Bob always Z, no communication. The branch is the full joint outcome (a,i,b);
+the reweighting acts on branch probabilities with per-setup normalization; the
+test is `Δ_B = TV(P'_B(·|X), P'_B(·|Z))` — Alice's basis choice leaking into
+Bob's marginal is a signaling channel.
 
-| F class | Δ_B(ε) (closed form) | first order | verdict |
+**v1 result (round 4, 2026-11-21)** — closed forms reproduced to 8×10⁻¹⁷:
+
+| F class | Δ_B(ε) closed form | 1st order | verdict (corrected 2026-11-22) |
 |---|---|---|---|
-| 1. Alice-local (references the upstream branch) | ½·tanh(\|ε\|/2) | ε/4 | **LEAKS** |
-| 2. Bob-local (F = b, Bob's own outcome) | 0, all orders (factorization: e^{εf(b)} pulls out of the sum over i) | — | **SURVIVES** |
-| 3. Joint/future (F = i′·b, upstream × downstream) | (e^{\|ε\|}−1)/((3+e^{\|ε\|})(1+e^{\|ε\|})) | ε/8 | **LEAKS** |
+| 1. Alice-local (references the upstream branch) | ½·tanh(\|ε\|/2) | ε/4 | **LEAKS** (Alice→Bob) |
+| 2. Bob-local (F = b, Bob's own outcome) | 0 to all orders *in this direction* (e^{εf(b)} factors out of the sum over i) | — | **SURVIVES in this direction only** — leaks in the flipped direction (round 5) |
+| 3. Joint/future (F = i′·b, upstream × downstream) | \|e^ε−1\|/((3+e^ε)(1+e^ε)) | ε/8 (ε>0) | **LEAKS** (both directions) |
 
-**Reading — a dichotomy, which is the no-go.** (a) If ε is to be *observable*
-in an entangled scenario, the reweighting must act on the measured branches
-(this toy); then any F that references the upstream (Alice) branch or the joint
-structure converts entanglement into an O(ε) signaling channel — the only F
-that survives to all orders in this scenario is Bob-local, a tilt of Bob's own
-statistics that signals to nobody. (b) If the reweighting acts instead on the
-measurement-free physical-history ensemble, no-signaling is trivially intact —
-but ε is then observationally invisible in the scenario. Either way: **no
-middle path** in this scenario between "observable ε" and "no signaling" for a
-downstream-informational F. The first-order general condition is recorded in
-the toy's docstring: ONE linear constraint on the 8 components of F — so the
-to-first-order surviving family is large, and the **follow-up** is to
-characterize the all-orders family (conjectured: the Bob-local sub-family) and
-generalize the scenario (other states, bases, dimensions). The O(ε) marginal
-shift is exactly the signature a later no-signaling/Bell-type hardware test
-would look for — the hierarchy stands: first linear algebra (done), then
-simulation, then maybe quantum experiment.
+**Round 5 (2026-11-22): external review → two real v1 bugs, both independently
+re-verified to machine precision before fixing.** (1) The "Bob-local SURVIVES"
+was the tested corner, not physics: flipping the direction (Alice fixed Z, Bob
+chooses Z/X) the Bob-local F leaks into Alice's marginal with
+Δ_A = ½·tanh(\|ε\|/2) (0.2311 at ε=1). (2) The case-3 closed form was wrong for
+ε<0 — the old form (e^{\|ε\|}−1)/((3+e^{\|ε\|})(1+e^{\|ε\|})) assumed ε>0; the
+correct form uses e^ε in the denominator (0.13721 vs old 0.08081 at ε=−1); v1's
+ε list was all-positive, so it was hidden. Also scoped: v1's "one linear
+constraint" is the to-first-order condition of the *tested* setup (16 F-values
+→ 4 independent first-order constraints, nullity 12 — the surviving family is
+large), not the universal no-signaling condition.
+
+**The full 2×2 square (v2, part A)** — all four corners, both directions, all
+three F's (Δ = TV of the remote local marginal across the sender's two
+settings; closed forms hand-derived, reproduced to 8×10⁻¹⁷; the two
+bug-fix cells were pre-registered across all ε including negative):
+
+| F | A→B @B=Z | A→B @B=X | B→A @A=Z | B→A @A=X | closed form |
+|---|---|---|---|---|---|
+| 1. Alice-local | 0.1225 | 0.1225 | 0 | 0 | ½·tanh(\|ε\|/2), A→B only |
+| 2. Bob-local | 0 | 0 | 0.1225 | 0.1225 | ½·tanh(\|ε\|/2), B→A only |
+| 3. Joint | 0.0527 | 0.0527 | 0.0527 | 0.0527 | \|e^ε−1\|/((3+e^ε)(1+e^ε)), all corners |
+
+(values at ε = 0.5.) **Reading: each local F leaks in exactly the direction v1
+never tested; the joint F leaks everywhere. NO outcome-referencing F survives
+the full square on |Φ⁺⟩.** The round-4 dichotomy survives in corrected form:
+what fails is the branch-*reweighting* architecture, not "informational
+physics" in general — the positive control below shows observability +
+no-signaling coexist once the coupling is dynamics.
+
+**Product-state proposition (v2, part C; statement + proof sketch + numerics).**
+For product states, the reweighting preserves both marginals for ALL product
+states and ALL settings ⟺ the weight factors as
+`w(a,b,x,y) = s(a,x)·r(b,y)` — each party's factor depends only on its OWN
+outcome and its OWN setting (setting-local factors; in the exponent,
+F = F_A(a,x) + F_B(b,y)). *Sufficiency:* the common factor cancels in both
+marginals against the per-corner normalization:
+P′_B(b|x,y) = P_B(b|y)·r(b,y)/Σ_{b′}P_B(b′|y)r(b′,y) — x-independent (mirror for
+A). *Necessity (sketch):* with τ = I/2 the Bob-direction no-signaling condition
+is, for all σ, x, x′, an identity in σ of the ratio
+[Σ_a P_A(a|x)w(a,b,x,y)]/Σ_{b′}(·) = [same at x′] — a ratio of linear forms in
+σ. Evaluating at (x,x′) = (Z,X) with σ = diag(p,1−p) — such σ's X-distribution
+is pinned at (½,½), independent of p — and separating the p and (1−p)
+coefficients gives w₊(b)·Σ_{b′}(w₊(b′)+w₋(b′)) = (w₊(b)+w₋(b))·Σ_{b′}w₊(b′)
+and the w₋-mirror; the two force w₊(b)/w₋(b) to be b-independent (a fixed
+ratio), i.e. the b-profile is universal across Alice's outcomes:
+w(a,b,x,y) = W_a(x,y)·r(b,y); the mirror argument (Alice direction) makes the
+a-factor setting-local; together, up to a per-corner scale absorbed by
+normalization: w = s(a,x)·r(b,y). *Numerics (40 random product states × random
+XZ axes):* safe family → max Δ = 2×10⁻¹⁶ (machine 0); the tempting per-corner
+factorization w = e^{A(a,x,y)+B(b,x,y)} (remote-setting dependence inside a
+factor) leaks on 40/40 (min max-Δ 3.2×10⁻²); a generic non-separable w leaks on
+40/40.
+
+**Entangled-family no-go theorem (v2, part D — the reviewer's "no-go I'd try to
+prove next", now a theorem within its stated scope).** *Scope:* 2×2 qubits; all
+projective 2-outcome settings in the XZ plane (continuous); the correlated
+family |ψ_θ⟩ = cosθ|00⟩ + sinθ|11⟩, θ ∈ (0,π/2). *Statement:* any positive
+weighting w(a,b,α,β) whose reweighted Bob AND Alice marginals are both
+independent of the remote setting — for ALL θ, all α, β — is outcome-constant
+per corner: w = c(α,β), hence P′ = P (operationally trivial). *Mechanism/proof
+sketch:* the reweighted Bob marginal at corner (α,β) is
+f(α) = [S_A(1+c·cosβ)+Δ_A(c·cosα+cosα·cosβ+sinα·sinβ·sin2θ)] /
+[2(S_A+Δ_A·c·cosα)], with S_A = w₊+w₋, Δ_A = w₊−w₋ (Alice-factor values at
+setting α; c = cos2θ). f(α) ≡ k for all α forces Δ_A(α) ≡ 0 for generic
+(β,θ): clear the denominator and project the resulting trigonometric identity
+onto the sinα/cosα Fourier modes — (t−kc)∫Δ_A sin2α + v∫Δ_A = 0 = the mirror,
+v = sinβ·sin2θ; for positive Δ_A, ∫Δ_A = 0 on the open (β,θ) set where
+(t−kc)² ≠ v² forces Δ_A ≡ 0. The mirror argument kills the Bob factor.
+*Numerics (v2 part D):* every nontrivial member of the product-state-safe
+family (the F1/F2 classes) leaks at the standard corners at EVERY tested θ
+(min leak 0.0325; at θ = π/4 both directions = ½·tanh(\|ε\|/2)), while the
+trivial w gives Δ = 8×10⁻¹⁷. **Conclusion: within the stated scope, naive
+globally-normalized branch reweighting is INCOMPATIBLE with universal
+no-signaling unless the weighting is operationally trivial.** Generalization is
+open work: all states (not just the correlated family), higher dimensions,
+POVMs (the product-state proposition is the template for the necessity side;
+the sinα mechanism is expected to survive).
+
+**Positive control (v2, part B) — the escape route that works.** A local CPTP
+channel as *dynamics* (Bob's qubit reset to |1⟩; Kraus K₀=|1⟩⟨0|, K₁=|1⟩⟨1|,
+ΣK†K = I) changes Bob's local statistics observably
+(P(s_b=−1|Z): 0.5 → 1.0) while preserving the trace and giving Δ = O(10⁻¹⁷) in
+both directions. So the no-go is against the *branch-reweighting* architecture
+(acting on measured joint branches with per-corner normalization), not against
+informational modifications of physics in general: observability + no-signaling
+COEXIST once the coupling is a valid (linear, CPTP-or-more-general) evolution
+of ρ — at the cost of the reweighting's simplicity. This is the live direction
+for the dual field: "the information functional couples to the state" must
+mean something like this, not a reweighting of measurement branches.
+
+**Ledger update (2026-11-22):** classical exponential weighting = valid toy
+machinery; symmetry breaking = understood (§3c/d); depth-shortcut ideas =
+refined (A/B note); naive quantum branch weighting = killed by no-signaling
+(scoped, here); dual-field core = still open. Next steps on this thread:
+(1) generalize the no-go (all states / dimensions / POVMs); (2) formulate the
+CPTP alternative architecture (what IS the dual-field evolution, concretely?);
+(3) the to-first-order null space (v2 part E: 16 F-values, 4 independent
+first-order constraints on the tested square, nullity 12; 200/200 random
+null-space members non-constant in the outcomes) = what the 4-corner test
+ALONE can and cannot establish. The O(ε) marginal shifts remain the signature a
+later no-signaling/Bell-type hardware test would look for — the hierarchy
+stands: first linear algebra (done, now scoped), then simulation, then maybe
+quantum experiment.
 
 ## 4. Bottom line — what the hypothesis now owes
 

@@ -54,20 +54,22 @@ Pre-registered predictions (derived analytically BEFORE running)
     case 2 (Bob-local, F = b):
         exp(eps*f(b)) factors out of the sum over i:
         sum_i P(i,b) e^{eps f(b)} = e^{eps f(b)} P_B(b)
-        =>  Delta_B(eps) = 0 EXACTLY, all orders            -> SURVIVES
+        =>  Delta_B(eps) = 0 EXACTLY, all orders, in the TESTED DIRECTION ONLY
+            (round-5: this toy fixes Bob's measurement at Z; flipping the
+            experiment -- Alice fixed Z, Bob chooses Z/X -- makes it LEAK with
+            Delta_A(eps) = 0.5*tanh(|eps|/2); see v2 part A)
     case 3 (joint, F = i'*b):
         P'_B(0|Z) = 1/(1+e^eps),  P'_B(0|X) = 2/(3+e^eps)
-        Delta_B(eps) = (e^|eps| - 1) / ((3+e^|eps|)(1+e^|eps|))
-        first order: eps/8                       -> LEAKS
+        Delta_B(eps) = |e^eps - 1| / ((3+e^eps)(1+e^eps))     (round-5: the
+        denominator uses e^eps, NOT e^|eps| -- the old form was wrong for
+        eps < 0: at eps=-1 actual 0.13721 vs old 0.08081)
+        first order: eps/8 (eps>0)                     -> LEAKS
 
-First-order general condition (recorded for the follow-up characterization):
+First-order condition (recorded; SCOPED to this setup: one Bell state, Bob's
+measurement fixed, Alice->Bob direction -- the full no-signaling condition is
+both directions for ALL states/settings, which is what v2 establishes):
     dP'_B(b|a) = eps * [ sum_i P_a(i,b) F_a(i,b)
                          - P_B(b) sum_{i,b'} P_a(i,b') F_a(i,b') ]
-    No-signaling to first order  <=>  the F-weighted b-profile is
-    basis-independent (ONE linear constraint on the 8 components of F: the
-    to-first-order surviving family is large; the Bob-local F's are the
-    distinguished sub-family that survives to ALL orders by the factorization
-    above).
 
 Known-limit tells (hard asserts)
 --------------------------------
@@ -155,12 +157,17 @@ def delta_numeric(case, eps):
     return tv(bob_marginal("X", F, eps), bob_marginal("Z", F, eps))
 
 def delta_closed(case, eps):
-    e = np.exp(abs(eps))
+    """ROUND-5 CORRECTION (case 3): the round-4 form substituted e^|eps| into
+    the WHOLE expression -- wrong for eps < 0, because the denominator
+    (3+e^eps)(1+e^eps) is NOT invariant under x -> 1/x (at eps=-1: actual
+    0.13721 vs the old 0.08081; caught in the round-5 review).  Case 1 is
+    symmetric (pure tanh), so it was unaffected."""
+    e = np.exp(eps)
     if case == 1:
-        return 0.5 * (e - 1.0) / (e + 1.0)            # = 0.5 tanh(|eps|/2)
+        return 0.5 * (np.exp(abs(eps)) - 1.0) / (np.exp(abs(eps)) + 1.0)  # 0.5 tanh(|eps|/2)
     if case == 2:
         return 0.0
-    return (e - 1.0) / ((3.0 + e) * (1.0 + e))
+    return abs(e - 1.0) / ((3.0 + e) * (1.0 + e))
 
 # ---------------- ASCII plot (house convention) ------------------------------
 def ascii_plot(xs, ys, title, width=56, height=15):
@@ -215,7 +222,8 @@ def main():
     print()
 
     # --- the test ---
-    eps_list = [0.0, 0.05, 0.1, 0.25, 0.5, 1.0, 2.0]
+    # round-5: negative eps included (the old list hid the case-3 |eps| bug)
+    eps_list = [0.0, 0.05, 0.1, 0.25, 0.5, 1.0, 2.0, -0.1, -0.5, -1.0]
     names = {1: "Alice-local (F on the upstream branch)",
              2: "Bob-local (F = b, downstream local outcome)",
              3: "Joint/future (F = i'*b, couples upstream x downstream)"}
@@ -228,7 +236,7 @@ def main():
             dev = abs(num - clo)
             worst = max(worst, dev)
             ok = "PASS" if dev < 1e-9 else "FAIL"
-            if eps in (0.0, 0.1, 1.0):
+            if eps in (0.0, 0.1, 1.0, -1.0):
                 print(f"{names[case]:<46} {eps:>5.2f} {num:>13.2e} {clo:>15.2e}  {ok}")
     print()
     print(f"max |numeric - closed form| over all cases/eps: {worst:.2e}  "
@@ -253,26 +261,25 @@ def main():
           "the factorization, asserted in the table).")
     print()
 
-    print("RESULT (round-4 program-level test, 2026-11-21):")
+    print("RESULT (round-4 test, 2026-11-21; SCOPED by the round-5 review):")
     print("  case 1 Alice-local:   Delta_B(eps) = 0.5*tanh(|eps|/2) ~ eps/4  -> LEAKS")
-    print("  case 2 Bob-local:     Delta_B(eps) = 0 (all orders, factorization) -> SURVIVES")
-    print("  case 3 Joint/future:  Delta_B(eps) = (e^|eps|-1)/((3+e^|eps|)(1+e^|eps|))")
-    print("                        ~ eps/8                                   -> LEAKS")
+    print("  case 2 Bob-local:     Delta_B(eps) = 0 in the TESTED direction only")
+    print("                        (Alice->Bob, Bob's Z fixed; factorization).")
+    print("                        FLIPPED (Alice fixed Z, Bob chooses Z/X) it LEAKS:")
+    print("                        Delta_A(eps) = 0.5*tanh(|eps|/2), 0.2311 at eps=1")
+    print("                        (round-5 correction; v2 part A).")
+    print("  case 3 Joint/future:  Delta_B(eps) = |e^eps-1|/((3+e^eps)(1+e^eps))")
+    print("                        ~ eps/8 (eps>0), ~ |eps|/8 (eps<0)          -> LEAKS")
+    print("                        (round-5: the old e^|eps| form was wrong for eps<0)")
     print()
-    print("Reading: any F that references the upstream (Alice) branch or the joint")
-    print("structure turns entanglement into an O(eps) signaling channel: Alice's")
-    print("basis choice shifts Bob's marginal by O(eps).  The only F that survives")
-    print("to all orders in this scenario is Bob-local (F = f(b)) -- a local tilt of")
-    print("Bob's own statistics, which signals to nobody.  Dichotomy: for eps to be")
-    print("OBSERVABLE in an entangled scenario the reweighting must act on the")
-    print("measured branches (this toy); acting instead on the measurement-free")
-    print("physical-history ensemble leaves no-signaling trivially intact and eps")
-    print("observationally invisible in the scenario.  Follow-up: characterize the")
-    print("surviving family (first order: ONE linear constraint on the 8 components")
-    print("of F; all orders: conjectured to be the Bob-local sub-family) and")
-    print("generalize the scenario (other states, bases, dimensions).  The O(eps)")
-    print("marginal shift is exactly the signature a later no-signaling/Bell-type")
-    print("hardware test would look for.")
+    print("Round-5 reading (full square + both directions in v2): NO outcome-referencing")
+    print("F survives the full test -- Alice-local, Bob-local (flipped) and joint all")
+    print("leak.  The all-state no-signaling condition forces the weighting to be")
+    print("outcome-constant per setup pair (w = c(x,y), absorbed by normalization:")
+    print("P' = P) within the v2 scope (2x2, XZ-plane settings, the correlated-state")
+    print("family) -- the no-go for the naive branch-reweighting law.  The live escape")
+    print("route is to formulate the coupling as a valid (CPTP/linear) evolution of")
+    print("rho: observable AND no-signaling-safe (v2 part B, the positive control).")
 
 if __name__ == "__main__":
     main()

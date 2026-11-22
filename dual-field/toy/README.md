@@ -9,7 +9,8 @@ python3 dual_field_toy_3state.py    # 3-state motor   (~60 s, the N=1e6 power ru
 python3 dual_field_toy_ratchet.py   # driven ratchet  (~60 s) — symmetric drive: a control/negative result (J=0)
 python3 dual_field_toy_chiral.py    # open problem (d) (~60 s) — a chiral (S-odd) I that DOES break the symmetry (J≈0.16·ε)
 python3 dual_field_toy_2layer.py    # 2-layer substrate/experience (<5 s) — A fixed, B variable (the D_causal/D_min fork illustration)
-python3 dual_field_quantum_nosignal.py  # two-qubit no-signaling (<5 s, exact linear algebra) — does P'~P exp(eps F) leak across entanglement?
+python3 dual_field_quantum_nosignal.py  # two-qubit no-signaling v1 (<5 s, exact linear algebra) — does P'~P exp(eps F) leak across entanglement?
+python3 dual_field_quantum_nosignal2.py # no-signaling v2 / round-5 (<5 s) — the full 2x2 square, the safe-family proposition, the scoped no-go theorem, the CPTP positive control
 ```
 
 ## What each computes
@@ -58,6 +59,19 @@ algebra (projectors, partial traces, reweighting, marginalization) — no Monte
 Carlo, no quantum hardware — and verifies the pre-registered closed forms to
 8×10⁻¹⁷.
 
+`dual_field_quantum_nosignal2.py` is the round-5 extension (README §3f,
+2026-11-22), same exact-arithmetic machinery: (A) the full 2×2 no-signaling
+square — Alice and Bob each with Z/X, BOTH directions, all three F classes,
+every cell against a hand-derived closed form; (B) a CPTP positive control —
+a local reset channel on Bob as dynamics (observable + no-signaling coexist);
+(C) the product-state proposition — the exactly-safe family is the
+setting-local factorization `w = s(a,x)·r(b,y)`, with the per-corner
+factorization shown to leak; (D) the entangled-family no-go on the correlated
+family |ψ_θ⟩ = cosθ|00⟩+sinθ|11⟩ — all-state no-signaling forces
+`w = c(α,β)` (proof sketch in README §3f); (E) the to-first-order null space
+of the tested square (16 F-values, 4 constraints, nullity 12). All hard
+asserts; exit 0 = consistent.
+
 ## Headline numbers (reference output)
 
 - **2-state:** `δ(ε) = P_ε(x=1)−P_0(x=1) ≈ −0.035·ε`; `I_avg` rises monotonically
@@ -95,18 +109,36 @@ Carlo, no quantum hardware — and verifies the pre-registered closed forms to
   "alienness" is the fourth quantity). At γ=0.5 the experience is maximally
   incompressible yet structurally white noise — the S/D fork maximized at the
   experience layer.
-- **two-qubit no-signaling (the first wall from existing physics, 2026-11-21):**
-  on |Φ⁺⟩, reweighting the full joint branches by `exp(εF)` and marginalizing
-  over Alice: **Alice-local F leaks** `Δ_B = ½·tanh(|ε|/2) ~ ε/4`, **joint/future
-  F leaks** `Δ_B = (e^|ε|−1)/((3+e^|ε|)(1+e^|ε|)) ~ ε/8`, **Bob-local F survives
-  to all orders** (`Δ_B = 0`; `e^{εf(b)}` factors out of the sum over i). Closed
-  forms verified to 8×10⁻¹⁷. The dichotomy (README §3f): for ε to be observable
-  in an entangled scenario the reweighting must act on the measured branches —
-  then any upstream/joint-referencing F turns entanglement into an O(ε)
-  signaling channel; acting on the measurement-free history ensemble keeps
-  no-signaling intact but makes ε observationally invisible there. Follow-up:
-  characterize the all-orders no-leak family (conjectured: Bob-local) and
-  generalize the scenario.
+- **two-qubit no-signaling v1 (the first wall from existing physics,
+  2026-11-21; verdicts corrected 2026-11-22):** on |Φ⁺⟩, reweighting the full
+  joint branches by `exp(εF)`, Alice basis X vs Z, Bob fixed Z: **Alice-local F
+  leaks** `Δ_B = ½·tanh(|ε|/2) ~ ε/4`; **joint/future F leaks**
+  `Δ_B = |e^ε−1|/((3+e^ε)(1+e^ε)) ~ ε/8` (the `e^|ε|`-denominator form was
+  wrong for ε<0 — round-5 fix); **Bob-local F survives to all orders IN THIS
+  DIRECTION** (`Δ_B = 0`; `e^{εf(b)}` factors out of the sum over i) — but
+  flips the direction and it leaks `Δ_A = ½·tanh(|ε|/2)` (round-5 fix; see v2).
+  Closed forms verified to 8×10⁻¹⁷.
+- **two-qubit no-signaling v2 (round-5 extension, 2026-11-22):** the FULL 2×2
+  square (all 4 corners × 3 F classes × both directions): **NO
+  outcome-referencing F survives** — each local F leaks in exactly the
+  direction v1 never tested, the joint F leaks everywhere (12 cells vs
+  hand-derived closed forms, 8×10⁻¹⁷). **Product-state proposition:** the
+  exactly-safe family for product states is `w(a,b,x,y) = s(a,x)·r(b,y)` —
+  each party's factor depends only on its own outcome AND its own setting
+  (verified: safe family → machine 0 on 40 random product states; the
+  per-corner factorization `e^{A(a,x,y)+B(b,x,y)}` leaks 40/40). **Entangled-
+  family no-go theorem (scoped: 2×2, XZ plane, |ψ_θ⟩ = cosθ|00⟩+sinθ|11⟩):**
+  all-state no-signaling (both directions, all θ) forces the weighting to be
+  outcome-constant per corner, `w = c(α,β)` — i.e. `P′ = P`; the mechanism is
+  the sinα term ∝ (w₊−w₋)·sinβ·sin2θ. **CPTP positive control:** a local
+  reset-to-|1⟩ channel on Bob is observable (P(s_b=−1|Z): 0.5→1.0), CPTP
+  (trace 1), and no-signaling (Δ = O(10⁻¹⁷)) — observability + no-signaling
+  COEXIST; what fails is the branch-reweighting architecture. **First-order
+  null space of the tested square:** 16 F-values, 4 independent first-order
+  constraints, nullity 12; 200/200 random null-space members non-constant in
+  the outcomes — the 4-corner test alone cannot prove triviality. Follow-up:
+  generalize the theorem (all states / dimensions / POVMs); formulate the CPTP
+  alternative architecture (README §3f).
 
 Tweak the baseline physics at the top of each file (the `P1` table for the 2-state;
 `BASE_CW / BASE_CCW / BASE_STAY / INERTIA` for the 3-state) to explore other
