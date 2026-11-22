@@ -203,3 +203,43 @@ structure, not ontology (the toy is silent on the substrate by design).
    the "fixed substrate" analogy is strained at that layer — the clean reading is
    that the experience-relevant weight lives in description space (B), i.e. the
    D_min side of the fork.
+
+## 8. Recreational mapping (2026-11-21, requested translation)
+
+γ = the "disconnection gate". LSD/psilocybin/DMT (5-HT2A) and ketamine (NMDA) are
+the same axis via different receptors with different bleed content: LSD bleeds in
+memory/meaning (entorhinal); ketamine bleeds in sensory/self-model disruption
+(thalamocortical). Experience is set by position on the axis + γ's dynamics
+(stable vs fluctuating), not by which drug.
+
+Toy variable -> trip-speak: I = fidelity; xi_Y = temporal binding; H_rate =
+novelty/meaning-generation; zlib = predictability of the experienced stream.
+
+- **Time goes first, at small gamma** (xi_Y 48.7->2.2 at gamma=0.1): microdose
+  "looser time" = LSD "eternal now" = k-hole "time stop", same effect at
+  different gamma.
+- **The peak is the middle, not the maximum** (gamma=0.5 = max novelty, zero
+  fidelity/structure): past the peak, "more" yields a NEW STABLE reality (the
+  gamma=1 mirror world: stable, structured, alien, full fidelity = the structural
+  signature of the dome/tunnel/cosmic-geometry reports), not more chaos. The
+  gamma=1 bit-flip is a minimal stand-in for "reorganization".
+- **The bad trip is dynamical, not amplitudinal**: high *stable* gamma = a stable
+  (possibly terrifying) mirror world; the bad trip = *fluctuating* gamma (oscillating
+  between real and alien without resolving). Set/setting = gamma-stabilizers -> the
+  mechanistic reason set/setting is the #1 outcome lever, not "take less".
+- **Flashbacks/HPP = gamma stuck half-open** (residual bleed of mirror-world
+  structure). **Ego death** = self-model dissolution in the high-gamma regime; a
+  "lastingly changed self" = the baseline gamma shifted (plasticity); integration
+  = re-tuning to the new baseline.
+- **Three-axis shelf:** (a) GAIN controls — substrate volume, mapping intact
+  (alcohol down = dull/blur; caffeine/amphetamines up = sharpen); (b) GATE
+  controls — gamma (LSD family: slow, meaning/vision; ketamine: fast,
+  dissociation/self; DMT = a fast gamma spike, a 15-40 min sweep through the
+  axis); (c) SOCIAL channel — MDMA ~ close the gate + amplify the social signal
+  (amplifier of the other-model, not destabilizer of the self-model: why it is an
+  empathogen, not a psychedelic).
+
+Limits: single-gate lumping (real drugs hit several receptors; the toy folds them
+into one gamma); the gamma<->dose map is structural, not calibrated; the
+fluctuating-gamma claim is a prediction pending the fluctuating-gamma extension
+(S7.1).
